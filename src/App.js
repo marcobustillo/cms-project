@@ -1,10 +1,16 @@
 import React from "react";
-import logo from "./logo.svg";
+import { BrowserRouter, Switch } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 
 function App() {
-  return <Dashboard />;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Dashboard />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;
