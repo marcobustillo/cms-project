@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
+import { Link as RouterLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
@@ -155,15 +155,15 @@ export default function Dashboard() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            component="h1"
+          <Link
             variant="h6"
             color="inherit"
-            noWrap
             className={classes.title}
+            component={RouterLink}
+            to="/"
           >
             Dashboard
-          </Typography>
+          </Link>
           <IconButton color="inherit" onClick={handleMenu}>
             <Avatar src="https://avatars0.githubusercontent.com/u/13887767?v=4" />
           </IconButton>
