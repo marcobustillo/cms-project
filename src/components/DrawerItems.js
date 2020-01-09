@@ -9,7 +9,7 @@ import SchoolIcon from "@material-ui/icons/School";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import StarsIcon from "@material-ui/icons/Stars";
 
-const MainListItems = () => {
+const DrawerItems = () => {
   const history = useHistory();
   return (
     <div>
@@ -47,4 +47,4 @@ const MainListItems = () => {
   );
 };
 
-export default MainListItems;
+export default DrawerItems;

@@ -17,7 +17,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import MainListItems from "./ListItems";
+import DrawerItems from "./DrawerItems";
 import Router from "./Router";
 
 function Copyright() {
@@ -202,7 +202,7 @@ export default function Dashboard() {
         </div>
         <Divider />
         <List>
-          <MainListItems />
+          <DrawerItems />
         </List>
       </Drawer>
       <main className={classes.content}>

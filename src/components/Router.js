@@ -4,6 +4,7 @@ import Home from "./Home";
 import About from "./About";
 import Work from "./Work";
 import Education from "./Education";
+import Skills from "./Skills";
 
 const Router = props => {
   const match = useRouteMatch();
@@ -27,6 +28,16 @@ const Router = props => {
       path: `${match.url}education`,
       exact: true,
       main: () => <Education />
+    },
+    {
+      path: `${match.url}skills`,
+      exact: true,
+      main: () => <Skills />
+    },
+    {
+      path: `${match.url}social-media`,
+      exact: true,
+      main: () => <Skills />
     }
   ];
 
