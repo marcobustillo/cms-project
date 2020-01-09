@@ -38,7 +38,7 @@ const Home = props => {
                 <Typography variant="h3">Marco Bustillo</Typography>
                 <Typography variant="body1">Software Engineer</Typography>
                 <Typography variant="body1">Philippines</Typography>
-                <Typography variant="subtitle1" paragraph>
+                <Typography variant="subtitle1" paragraph color="textSecondary">
                   A software engineer that loves learning new things and
                   aspiring entrepreneur. Open for change
                 </Typography>
