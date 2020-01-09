@@ -24,7 +24,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://marcobustillo.ml">
         Portfolio CMS
       </Link>{" "}
       {new Date().getFullYear()}
@@ -210,9 +210,18 @@ export default function Dashboard() {
         <Container maxWidth="lg" className={classes.container}>
           {/* placeholder here for main content */}
           <Router />
-          <Box pt={4}>
+          <div
+            style={{
+              position: "absolute",
+              marginRight: "auto",
+              marginLeft: "auto",
+              bottom: 15,
+              left: 0,
+              right: 0
+            }}
+          >
             <Copyright />
-          </Box>
+          </div>
         </Container>
       </main>
     </div>
