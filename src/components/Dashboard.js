@@ -17,8 +17,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { mainListItems } from "./ListItems";
-import Home from "./Home";
+import MainListItems from "./ListItems";
+import Router from "./Router";
 
 function Copyright() {
   return (
@@ -116,7 +116,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
 
@@ -201,13 +201,15 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>
+          <MainListItems />
+        </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           {/* placeholder here for main content */}
-          <Home />
+          <Router />
           <Box pt={4}>
             <Copyright />
           </Box>
