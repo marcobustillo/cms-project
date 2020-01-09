@@ -18,7 +18,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import DrawerItems from "./DrawerItems";
-import Router from "./Router";
+import Router from "../navigation";
 
 function Copyright() {
   return (
@@ -114,7 +114,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Dashboard() {
+const Dashboard = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -226,4 +226,6 @@ export default function Dashboard() {
       </main>
     </div>
   );
-}
+};
+
+export default Dashboard;

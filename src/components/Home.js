@@ -19,11 +19,11 @@ const Home = props => {
   const styles = useStyles();
   return (
     <Grid container spacing={3}>
-      <Grid xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
           <CardContent>
             <Grid container spacing={3} alignItems="center">
-              <Grid xs={12} md={2} lg={2}>
+              <Grid item xs={12} md={2} lg={2}>
                 <img
                   src="https://avatars0.githubusercontent.com/u/13887767?v=4"
                   style={{
@@ -47,7 +47,7 @@ const Home = props => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
           <CardHeader title="About" />
           <Divider />
@@ -59,7 +59,7 @@ const Home = props => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
           <CardHeader title="Skills" />
           <Divider />
@@ -71,7 +71,7 @@ const Home = props => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
           <CardHeader title="Projects" />
           <Divider />
@@ -83,7 +83,7 @@ const Home = props => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
           <CardHeader title="Experience" />
           <Divider />
@@ -95,7 +95,7 @@ const Home = props => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
           <CardHeader title="Education" />
           <Divider />
@@ -107,7 +107,7 @@ const Home = props => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
           <CardHeader title="Languages" />
           <Divider />
@@ -119,7 +119,7 @@ const Home = props => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
           <CardHeader title="Social Media" />
           <Divider />
