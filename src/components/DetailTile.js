@@ -8,7 +8,7 @@ const DetailTile = props => {
         SM Retail Inc.
       </Typography>
       <Typography
-        variant="body2"
+        variant="caption"
         component="p"
         color="textSecondary"
         gutterBottom
@@ -16,7 +16,7 @@ const DetailTile = props => {
         Software Developer
       </Typography>
       <Typography
-        variant="body2"
+        variant="subtitle2"
         component="p"
         color="textSecondary"
         gutterBottom
@@ -24,7 +24,7 @@ const DetailTile = props => {
         Apr 2019 - Current
       </Typography>
       <Typography
-        variant="body1"
+        variant="body2"
         component="p"
         color="textSecondary"
         gutterBottom
