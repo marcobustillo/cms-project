@@ -7,6 +7,7 @@ import SkillModalItems from "./SkillModalItems";
 
 const Skills = props => {
   const [open, setOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("Add Skill");
   const [title, setTitle] = useState("");
   const [years, setYears] = useState(0);
   const [skill, setSkill] = useState("");
@@ -29,6 +30,11 @@ const Skills = props => {
     }
   };
 
+  const handleOpenModal = () => {
+    setModalTitle("Add Skill");
+    setOpen(!open);
+  };
+
   const TEST = [
     {
       title: "hey",
@@ -49,6 +55,7 @@ const Skills = props => {
     setSkill("Learning");
     setRating(values.rating);
     setYears(values.yearsOfExperience);
+    setModalTitle("Edit Skill");
     setOpen(true);
   };
 
@@ -75,12 +82,12 @@ const Skills = props => {
           />
         ))}
       </List>
-      <Fab onClick={() => setOpen(true)} />
+      <Fab onClick={handleOpenModal} />
       <Modal
-        title="Add skills"
+        title={modalTitle}
         open={open}
         handleSubmit={handleSubmit}
-        handleClose={() => setOpen(false)}
+        handleClose={handleOpenModal}
       >
         <SkillModalItems
           title={title}
