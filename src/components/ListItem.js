@@ -33,7 +33,7 @@ const ListItem = props => {
   return (
     <MUIListItem className={classes.demo}>
       <ListItemText
-        primary="test"
+        primary={props.title}
         secondary={
           <>
             <Typography
@@ -42,15 +42,15 @@ const ListItem = props => {
               className={classes.inline}
               color="textPrimary"
             >
-              Intermediate
+              {props.skill}
             </Typography>
-            {" —  3 Years of Experience"}
+            {` —  ${props.yearsOfExperience} Years of Experience`}
           </>
         }
       />
-      <Rating name="simple-controlled" value={3} />
+      <Rating value={props.rating} readOnly />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="edit">
+        <IconButton edge="end" aria-label="edit" onClick={props.onClick}>
           <EditIcon />
         </IconButton>
       </ListItemSecondaryAction>
