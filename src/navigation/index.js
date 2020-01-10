@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, useRouteMatch } from "react-router-dom";
+import React, { memo } from "react";
+import { Route, withRouter } from "react-router-dom";
 import Home from "../components/Home";
 import About from "../components/About";
 import Work from "../components/Work";
@@ -7,8 +7,8 @@ import Education from "../components/Education";
 import Skills from "../components/Skills";
 import SocialMedia from "../components/SocialMedia";
 
-const Router = props => {
-  const match = useRouteMatch();
+const Router = memo(props => {
+  const { match } = props;
   const routes = [
     {
       path: `${match.url}`,
@@ -54,6 +54,6 @@ const Router = props => {
       ))}
     </>
   );
-};
+});
 
-export default Router;
+export default withRouter(Router);

@@ -9,10 +9,6 @@ const SocialMedia = props => {
       <Typography variant="h4">Social Media</Typography>
       <List>
         <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
       </List>
       <Fab />
     </>

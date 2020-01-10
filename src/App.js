@@ -13,13 +13,13 @@ function App() {
   theme = responsiveFontSizes(theme);
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Switch>
           <Dashboard />
-        </ThemeProvider>
-      </Switch>
-    </BrowserRouter>
+        </Switch>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

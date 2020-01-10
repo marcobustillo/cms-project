@@ -34,7 +34,7 @@ const Home = props => {
                   }}
                 />
               </Grid>
-              <Grid xs={12} md={10} lg={10}>
+              <Grid item xs={12} md={10} lg={10}>
                 <Typography variant="h3">Marco Bustillo</Typography>
                 <Typography variant="body1">Software Engineer</Typography>
                 <Typography variant="body1">Philippines</Typography>

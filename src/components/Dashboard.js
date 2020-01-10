@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { useRouteMatch } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import { Link as RouterLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -17,6 +18,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Hidden from "@material-ui/core/Hidden";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import DrawerItems from "./DrawerItems";
 import Router from "../navigation";
 
@@ -65,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     })
   },
   menuButton: {
-    marginRight: 36
+    marginRight: 20
   },
   menuButtonHidden: {
     display: "none"
@@ -120,8 +123,12 @@ const Dashboard = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
 
+  const match = useRouteMatch();
+
+  const matchMemo = React.useMemo(() => match, [match]);
+
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setOpen(!open);
   };
   const handleDrawerClose = () => {
     setOpen(false);
@@ -138,20 +145,14 @@ const Dashboard = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
+      <AppBar position="absolute" className={clsx(classes.appBar, open)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
+            className={clsx(classes.menuButton, open)}
           >
             <MenuIcon />
           </IconButton>
@@ -188,28 +189,40 @@ const Dashboard = () => {
           </Menu>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
+      <Hidden mdDown>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <DrawerItems />
+          </List>
+        </Drawer>
+      </Hidden>
+
+      <Hidden smUp>
+        <SwipeableDrawer
+          open={open}
+          onClose={handleDrawerClose}
+          onOpen={handleDrawerOpen}
+        >
           <DrawerItems />
-        </List>
-      </Drawer>
+        </SwipeableDrawer>
+      </Hidden>
+
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          {/* placeholder here for main content */}
-          <Router />
+          {Router(matchMemo)}
           <div
             style={{
               position: "absolute",
