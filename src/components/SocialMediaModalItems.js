@@ -21,7 +21,7 @@ const SocialMediaModalItems = props => {
         </InputLabel>
         <Select
           native
-          value={props.skill}
+          value={props.type}
           onChange={props.onChange}
           inputProps={{
             name: "social-items",
@@ -43,7 +43,7 @@ const SocialMediaModalItems = props => {
         margin="dense"
         variant="outlined"
         placeholder="URL"
-        value={props.url}
+        value={props.link}
       />
     </>
   );

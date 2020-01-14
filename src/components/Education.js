@@ -29,6 +29,15 @@ const Education = props => {
 
   const handleEdit = values => {
     setModalTitle("Edit Education");
+    setFormValues({
+      company: "",
+      position: "",
+      location: "",
+      summary: ""
+    });
+    setCurrent(false);
+    handleStartDate(new Date());
+    handleEndDate(new Date());
     setOpen(true);
   };
 

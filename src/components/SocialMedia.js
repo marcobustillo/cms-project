@@ -7,9 +7,16 @@ import SocialMediaModalItems from "./SocialMediaModalItems";
 
 const SocialMedia = props => {
   const [open, setOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("Add Social Media");
+  const [formValues, setFormValues] = useState({
+    link: "",
+    type: ""
+  });
 
   const handleModal = () => {
     setOpen(!open);
+    setFormValues({ link: "", type: "" });
+    setModalTitle("Add Social Media");
   };
 
   const MEDIA = [
@@ -27,6 +34,12 @@ const SocialMedia = props => {
     }
   ];
 
+  const handleEdit = values => {
+    setModalTitle("Edit Social Media");
+    setFormValues(values);
+    setOpen(true);
+  };
+
   return (
     <>
       <Typography variant="h4">Social Media</Typography>
@@ -36,12 +49,13 @@ const SocialMedia = props => {
             key={media.link}
             link={media.link}
             type={media.type}
+            onClick={() => handleEdit(media)}
           />
         ))}
       </List>
       <Fab onClick={handleModal} />
-      <Modal open={open} handleClose={handleModal}>
-        <SocialMediaModalItems />
+      <Modal title={modalTitle} open={open} handleClose={handleModal}>
+        <SocialMediaModalItems type={formValues.type} link={formValues.link} />
       </Modal>
     </>
   );

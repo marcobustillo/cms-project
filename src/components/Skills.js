@@ -32,6 +32,10 @@ const Skills = props => {
 
   const handleOpenModal = () => {
     setModalTitle("Add Skill");
+    setTitle("");
+    setSkill("");
+    setRating(0);
+    setYears(0);
     setOpen(!open);
   };
 
