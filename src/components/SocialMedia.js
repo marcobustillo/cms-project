@@ -13,6 +13,12 @@ const SocialMedia = props => {
     type: ""
   });
 
+  const handleChange = event => {
+    const { id, value } = event.target;
+
+    setFormValues({ ...formValues, [id]: value });
+  };
+
   const handleModal = () => {
     setOpen(!open);
     setFormValues({ link: "", type: "" });
@@ -55,7 +61,11 @@ const SocialMedia = props => {
       </List>
       <Fab onClick={handleModal} />
       <Modal title={modalTitle} open={open} handleClose={handleModal}>
-        <SocialMediaModalItems type={formValues.type} link={formValues.link} />
+        <SocialMediaModalItems
+          type={formValues.type}
+          link={formValues.link}
+          onChange={handleChange}
+        />
       </Modal>
     </>
   );

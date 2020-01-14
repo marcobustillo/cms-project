@@ -16,7 +16,7 @@ const SocialMediaModalItems = props => {
   return (
     <>
       <FormControl variant="outlined" fullWidth margin="dense">
-        <InputLabel ref={inputLabel} htmlFor="lsocial-items-simple">
+        <InputLabel ref={inputLabel} htmlFor="type">
           Social Media Type
         </InputLabel>
         <Select
@@ -25,7 +25,7 @@ const SocialMediaModalItems = props => {
           onChange={props.onChange}
           inputProps={{
             name: "social-items",
-            id: "social-items-simple"
+            id: "type"
           }}
         >
           <option value="" />
@@ -38,12 +38,14 @@ const SocialMediaModalItems = props => {
       </FormControl>
       <TextField
         fullWidth
+        id="link"
         required
         label="URL"
         margin="dense"
         variant="outlined"
         placeholder="URL"
         value={props.link}
+        onChange={props.onChange}
       />
     </>
   );
