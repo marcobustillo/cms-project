@@ -1,12 +1,30 @@
 import React from "react";
-import { Paper, Typography } from "@material-ui/core";
+import { Paper, Typography, IconButton } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
 
 const DetailTile = props => {
   return (
     <Paper style={{ padding: 20 }}>
-      <Typography variant="h5" component="h2">
-        SM Retail Inc.
-      </Typography>
+      <div
+        style={{
+          display: "flex",
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between"
+        }}
+      >
+        <Typography variant="h5" component="h2">
+          SM Retail Inc.
+        </Typography>
+        <IconButton
+          size="small"
+          edge="end"
+          aria-label="edit"
+          onClick={props.onClick}
+        >
+          <EditIcon fontSize="small" />
+        </IconButton>
+      </div>
       <Typography
         variant="caption"
         component="p"
