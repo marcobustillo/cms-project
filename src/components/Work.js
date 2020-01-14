@@ -48,6 +48,7 @@ const Work = props => {
     setOpen(!open);
     setModalTitle("Add Work");
   };
+
   return (
     <>
       <Typography variant="h4">Work</Typography>
