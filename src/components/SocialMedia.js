@@ -32,7 +32,11 @@ const SocialMedia = props => {
       <Typography variant="h4">Social Media</Typography>
       <List>
         {MEDIA.map(media => (
-          <SocialMediaItem link={media.link} type={media.type} />
+          <SocialMediaItem
+            key={media.link}
+            link={media.link}
+            type={media.type}
+          />
         ))}
       </List>
       <Fab onClick={handleModal} />

@@ -5,6 +5,8 @@ import {
   responsiveFontSizes,
   ThemeProvider
 } from "@material-ui/core/styles";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 
@@ -14,11 +16,13 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Switch>
-          <Dashboard />
-        </Switch>
-      </BrowserRouter>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <BrowserRouter>
+          <Switch>
+            <Dashboard />
+          </Switch>
+        </BrowserRouter>
+      </MuiPickersUtilsProvider>
     </ThemeProvider>
   );
 }

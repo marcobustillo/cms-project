@@ -34,6 +34,14 @@ const DetailTile = props => {
         Software Developer
       </Typography>
       <Typography
+        variant="caption"
+        component="p"
+        color="textSecondary"
+        gutterBottom
+      >
+        Nagoya, Japan
+      </Typography>
+      <Typography
         variant="subtitle2"
         component="p"
         color="textSecondary"

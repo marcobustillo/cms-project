@@ -59,7 +59,9 @@ const Skills = props => {
     setOpen(true);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = event => {
+    event.preventDefault();
+  };
 
   const onChange = event => {
     setSkill(event.target.value);

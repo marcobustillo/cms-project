@@ -189,7 +189,7 @@ const Dashboard = () => {
           </Menu>
         </Toolbar>
       </AppBar>
-      <Hidden mdDown>
+      <Hidden smDown>
         <Drawer
           variant="permanent"
           classes={{
@@ -209,13 +209,13 @@ const Dashboard = () => {
         </Drawer>
       </Hidden>
 
-      <Hidden smUp>
+      <Hidden mdUp>
         <SwipeableDrawer
           open={open}
           onClose={handleDrawerClose}
           onOpen={handleDrawerOpen}
         >
-          <DrawerItems />
+          <DrawerItems onClose={handleDrawerClose} />
         </SwipeableDrawer>
       </Hidden>
 
@@ -225,12 +225,7 @@ const Dashboard = () => {
           {Router(matchMemo)}
           <div
             style={{
-              position: "absolute",
-              marginRight: "auto",
-              marginLeft: "auto",
-              bottom: 15,
-              left: 0,
-              right: 0
+              margin: "20px auto"
             }}
           >
             <Copyright />

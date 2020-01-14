@@ -32,6 +32,7 @@ const Home = props => {
                     marginRight: "16px",
                     borderRadius: "0.28rem"
                   }}
+                  alt="cu"
                 />
               </Grid>
               <Grid item xs={12} md={10} lg={10}>
