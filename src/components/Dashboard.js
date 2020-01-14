@@ -28,7 +28,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://marcobustillo.ml">
-        Portfolio CMS
+        Portfolio Builder
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -163,7 +163,7 @@ const Dashboard = () => {
             component={RouterLink}
             to="/"
           >
-            Dashboard
+            Portfolio Builder
           </Link>
           <IconButton color="inherit" onClick={handleMenu}>
             <Avatar src="https://avatars0.githubusercontent.com/u/13887767?v=4" />
