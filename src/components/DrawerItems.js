@@ -9,6 +9,7 @@ import SchoolIcon from "@material-ui/icons/School";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import StarsIcon from "@material-ui/icons/Stars";
 import ProfileIcon from "@material-ui/icons/AccountBox";
+import ProjectIcon from "@material-ui/icons/AccountTree";
 import SignOut from "@material-ui/icons/ExitToApp";
 
 const DrawerItems = props => {
@@ -58,6 +59,20 @@ const DrawerItems = props => {
           <WorkIcon />
         </ListItemIcon>
         <ListItemText primary="Work" />
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          history.push(`/${id}/projects`);
+          if (onClose) {
+            onClose();
+          }
+        }}
+      >
+        <ListItemIcon>
+          <ProjectIcon />
+        </ListItemIcon>
+        <ListItemText primary="Projects" />
       </ListItem>
       <ListItem
         button
