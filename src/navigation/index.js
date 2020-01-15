@@ -7,6 +7,7 @@ import Education from "../components/education/Education";
 import Skills from "../components/skills/Skills";
 import SocialMedia from "../components/social-media/SocialMedia";
 import Project from "../components/projects/Projects";
+import Language from "../components/language/Language";
 
 const Router = memo(props => {
   const { match } = props;
@@ -45,6 +46,11 @@ const Router = memo(props => {
       path: `${match.url}:id/skills`,
       exact: true,
       main: () => <Skills />
+    },
+    {
+      path: `${match.url}:id/language`,
+      exact: true,
+      main: () => <Language />
     },
     {
       path: `${match.url}:id/social-media`,
