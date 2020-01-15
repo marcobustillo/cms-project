@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { List, Typography } from "@material-ui/core";
 import ListItem from "./ListItem";
 import Fab from "./FloatingAction";
 import Modal from "./Modal";
 import SkillModalItems from "./SkillModalItems";
+import { getApi } from "../utils/api";
+import { store } from "../utils/store";
 
 const Skills = props => {
   const [open, setOpen] = useState(false);
@@ -12,6 +14,28 @@ const Skills = props => {
   const [years, setYears] = useState(0);
   const [skill, setSkill] = useState("");
   const [rating, setRating] = useState(0);
+
+  const {
+    state: { loading, data },
+    dispatch
+  } = useContext(store);
+
+  const getUser = async () => {
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      dispatch({ type: "fetch" });
+      const result = await getApi("marcobustillo");
+      if (result) {
+        dispatch({
+          type: "getUser",
+          payload: result.data
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const handleSkills = value => {
     switch (value) {
@@ -39,21 +63,6 @@ const Skills = props => {
     setOpen(!open);
   };
 
-  const TEST = [
-    {
-      title: "hey",
-      level: "Learning",
-      rating: 2,
-      yearsOfExperience: 3
-    },
-    {
-      title: "tested",
-      level: "Advanced",
-      rating: 4,
-      yearsOfExperience: 5
-    }
-  ];
-
   const handleEdit = values => {
     setTitle(values.title);
     setSkill("Learning");
@@ -65,6 +74,19 @@ const Skills = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
+    const { skills } = data;
+    dispatch({
+      type: "getUser",
+      payload: {
+        ...data,
+        skills: skills.concat({
+          title: "tested",
+          level: "Advanced",
+          rating: 4,
+          yearsOfExperience: 5
+        })
+      }
+    });
   };
 
   const onChange = event => {
@@ -77,16 +99,22 @@ const Skills = props => {
     <>
       <Typography variant="h4">Skills</Typography>
       <List>
-        {TEST.map(item => (
-          <ListItem
-            title={item.title}
-            rating={item.rating}
-            skill={item.level}
-            yearsOfExperience={item.yearsOfExperience}
-            key={item.title}
-            onClick={() => handleEdit(item)}
-          />
-        ))}
+        {data.skills &&
+          data.skills.map(item => (
+            <ListItem
+              title={item.title}
+              rating={item.rating}
+              skill={item.level}
+              yearsOfExperience={item.yearsOfExperience}
+              key={item.title}
+              onClick={() => handleEdit(item)}
+            />
+          ))}
+        {data.skills && data.skills.length === 0 && (
+          <Typography variant="subtitle1" paragraph color="textSecondary">
+            No skills found. Add skills
+          </Typography>
+        )}
       </List>
       <Fab onClick={handleOpenModal} />
       <Modal

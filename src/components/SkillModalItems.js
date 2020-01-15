@@ -16,7 +16,6 @@ const SkillModalItems = props => {
     <>
       <TextField
         fullWidth
-        required
         label="Title"
         margin="dense"
         variant="outlined"

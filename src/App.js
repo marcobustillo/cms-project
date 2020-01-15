@@ -9,6 +9,7 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
+import { StateProvider } from "./utils/store";
 
 function App() {
   let theme = createMuiTheme();
@@ -16,14 +17,16 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/login" component={() => <div>login</div>} />
-            <Dashboard />
-          </Switch>
-        </BrowserRouter>
-      </MuiPickersUtilsProvider>
+      <StateProvider>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/login" component={() => <div>login</div>} />
+              <Dashboard />
+            </Switch>
+          </BrowserRouter>
+        </MuiPickersUtilsProvider>
+      </StateProvider>
     </ThemeProvider>
   );
 }

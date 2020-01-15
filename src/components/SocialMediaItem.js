@@ -11,19 +11,9 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 752
-  },
-  demo: {
+  container: {
     marginBottom: 5,
     backgroundColor: theme.palette.background.paper
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2)
-  },
-  inline: {
-    display: "inline"
   }
 }));
 
@@ -31,7 +21,7 @@ const ListItem = props => {
   const classes = useStyles();
 
   return (
-    <MUIListItem className={classes.demo}>
+    <MUIListItem className={classes.container}>
       <ListItemText
         primary={props.type}
         secondary={
@@ -48,11 +38,13 @@ const ListItem = props => {
           </Typography>
         }
       />
-      <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="edit" onClick={props.onClick}>
-          <EditIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
+      {!props.viewMode && (
+        <ListItemSecondaryAction>
+          <IconButton edge="end" aria-label="edit" onClick={props.onClick}>
+            <EditIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      )}
     </MUIListItem>
   );
 };

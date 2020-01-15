@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import DetailTile from "./DetailTile";
 import Fab from "./FloatingAction";
 import Modal from "./Modal";
 import WorkModalItem from "./WorkModalItem";
+import { getApi } from "../utils/api";
+import { store } from "../utils/store";
 
 const Work = props => {
   const [open, setOpen] = useState(false);
@@ -18,6 +20,28 @@ const Work = props => {
     location: "",
     summary: ""
   });
+
+  const {
+    state: { loading, data },
+    dispatch
+  } = useContext(store);
+
+  const getUser = async () => {
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      dispatch({ type: "fetch" });
+      const result = await getApi("marcobustillo");
+      if (result) {
+        dispatch({
+          type: "getUser",
+          payload: result.data
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const handleChange = event => {
     const { id, value } = event.target;
@@ -61,20 +85,23 @@ const Work = props => {
   return (
     <>
       <Typography variant="h4">Work</Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6} lg={6}>
-          <DetailTile onClick={() => handleEdit("test")} />
+      {data.work && data.work.length > 0 && (
+        <Grid container spacing={3}>
+          {data.work &&
+            data.work.map(item => (
+              <Grid item xs={12} md={6} lg={6}>
+                <DetailTile onClick={() => handleEdit("test")} />
+              </Grid>
+            ))}
         </Grid>
-        <Grid item xs={12} md={6} lg={6}>
-          <DetailTile />
-        </Grid>
-        <Grid item xs={12} md={6} lg={6}>
-          <DetailTile />
-        </Grid>
-        <Grid item xs={12} md={6} lg={6}>
-          <DetailTile />
-        </Grid>
-      </Grid>
+      )}
+      {data.work && data.work.length === 0 && (
+        <div className="MuiList-root MuiList-padding">
+          <Typography variant="subtitle1" paragraph color="textSecondary">
+            No work found. Add work
+          </Typography>
+        </div>
+      )}
       <Fab onClick={handleOpenModal} />
       <Modal
         title={modalTitle}

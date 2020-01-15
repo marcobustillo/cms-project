@@ -4,7 +4,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 const EducationTile = props => {
   return (
-    <Paper style={{ padding: 20 }}>
+    <Paper style={{ padding: 20 }} elevation={props.viewMode ? 0 : 1}>
       <div
         style={{
           display: "flex",
@@ -16,14 +16,16 @@ const EducationTile = props => {
         <Typography variant="h5" component="h2">
           Technological University of the Philippines
         </Typography>
-        <IconButton
-          size="small"
-          edge="end"
-          aria-label="edit"
-          onClick={props.onClick}
-        >
-          <EditIcon fontSize="small" />
-        </IconButton>
+        {!props.viewMode && (
+          <IconButton
+            size="small"
+            edge="end"
+            aria-label="edit"
+            onClick={props.onClick}
+          >
+            <EditIcon fontSize="small" />
+          </IconButton>
+        )}
       </div>
       <Typography
         variant="caption"

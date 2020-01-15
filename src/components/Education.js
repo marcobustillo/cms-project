@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import EducationTile from "./EducationTile";
 import Fab from "./FloatingAction";
 import Modal from "./Modal";
 import EducationModalItem from "./EducationModalItem";
+import { getApi } from "../utils/api";
+import { store } from "../utils/store";
 
 const Education = props => {
   const [open, setOpen] = useState(false);
@@ -17,6 +19,28 @@ const Education = props => {
     location: "",
     summary: ""
   });
+
+  const {
+    state: { loading, data },
+    dispatch
+  } = useContext(store);
+
+  const getUser = async () => {
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      dispatch({ type: "fetch" });
+      const result = await getApi("marcobustillo");
+      if (result) {
+        dispatch({
+          type: "getUser",
+          payload: result.data
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const handleChange = event => {
     const { id, value } = event.target;
@@ -60,11 +84,23 @@ const Education = props => {
   return (
     <>
       <Typography variant="h4">Education</Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6} lg={6}>
-          <EducationTile onClick={() => handleEdit("test")} />
+      {data.education && data.education.length > 0 && (
+        <Grid container spacing={3}>
+          {data.education &&
+            data.education.map(item => (
+              <Grid item xs={12} md={6} lg={6}>
+                <EducationTile onClick={() => handleEdit("test")} />
+              </Grid>
+            ))}
         </Grid>
-      </Grid>
+      )}
+      {data.education && data.education.length === 0 && (
+        <div className="MuiList-root MuiList-padding">
+          <Typography variant="subtitle1" paragraph color="textSecondary">
+            No education found. Add education
+          </Typography>
+        </div>
+      )}
       <Fab onClick={handleOpenModal} />
       <Modal
         title={modalTitle}

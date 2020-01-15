@@ -11,11 +11,7 @@ import { Rating } from "@material-ui/lab";
 import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 752
-  },
-  demo: {
+  container: {
     marginBottom: 5,
     backgroundColor: theme.palette.background.paper
   },
@@ -31,7 +27,7 @@ const ListItem = props => {
   const classes = useStyles();
 
   return (
-    <MUIListItem className={classes.demo}>
+    <MUIListItem className={classes.container}>
       <ListItemText
         primary={props.title}
         secondary={
@@ -49,11 +45,13 @@ const ListItem = props => {
         }
       />
       <Rating value={props.rating} readOnly />
-      <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="edit" onClick={props.onClick}>
-          <EditIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
+      {!props.viewMode && (
+        <ListItemSecondaryAction>
+          <IconButton edge="end" aria-label="edit" onClick={props.onClick}>
+            <EditIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      )}
     </MUIListItem>
   );
 };

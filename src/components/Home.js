@@ -1,22 +1,52 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Grid,
   Card,
   CardContent,
   CardHeader,
   Typography,
-  Divider
+  Divider,
+  List
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import SkillItem from "./ListItem";
+import SocialMediaItem from "./SocialMediaItem";
+import EducationItem from "./EducationTile";
+import DetailTile from "./DetailTile";
+import { getApi } from "../utils/api";
+import { store } from "../utils/store";
 
 const useStyles = makeStyles(theme => ({
   card: {
     marginBottom: "20px"
+  },
+  removePadding: {
+    paddingRight: 0,
+    paddingLeft: 0
   }
 }));
 
 const Home = props => {
   const styles = useStyles();
+
+  const {
+    state: { data },
+    dispatch
+  } = useContext(store);
+  const getUser = async () => {
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      const result = await getApi("marcobustillo");
+      dispatch({
+        type: "getUser",
+        payload: result.data
+      });
+    }
+  };
+
+  React.useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={12} lg={12}>
@@ -36,12 +66,11 @@ const Home = props => {
                 />
               </Grid>
               <Grid item xs={12} md={10} lg={10}>
-                <Typography variant="h3">Marco Bustillo</Typography>
+                <Typography variant="h3">{data.name}</Typography>
                 <Typography variant="body1">Software Engineer</Typography>
                 <Typography variant="body1">Philippines</Typography>
                 <Typography variant="subtitle1" paragraph color="textSecondary">
-                  A software engineer that loves learning new things and
-                  aspiring entrepreneur. Open for change
+                  {data.about}
                 </Typography>
               </Grid>
             </Grid>
@@ -64,11 +93,34 @@ const Home = props => {
         <Card className={styles.card}>
           <CardHeader title="Skills" />
           <Divider />
-          <CardContent>
-            <Typography variant="subtitle1" paragraph>
-              A software engineer that loves learning new things and aspiring
-              entrepreneur. Open for change
-            </Typography>
+          <CardContent className={styles.removePadding}>
+            <List>
+              {data.skills &&
+                data.skills.map(item => (
+                  <div key={item.title}>
+                    <SkillItem
+                      title={item.title}
+                      rating={item.rating}
+                      skill={item.level}
+                      yearsOfExperience={item.yearsOfExperience}
+                      key={item.title}
+                      viewMode
+                    />
+                    <Divider />
+                  </div>
+                ))}
+              {data.skills && data.skills.length === 0 && (
+                <div style={{ marginLeft: 20 }}>
+                  <Typography
+                    variant="subtitle1"
+                    paragraph
+                    color="textSecondary"
+                  >
+                    No skills found
+                  </Typography>
+                </div>
+              )}
+            </List>
           </CardContent>
         </Card>
       </Grid>
@@ -76,11 +128,14 @@ const Home = props => {
         <Card className={styles.card}>
           <CardHeader title="Projects" />
           <Divider />
-          <CardContent>
-            <Typography variant="subtitle1" paragraph>
-              A software engineer that loves learning new things and aspiring
-              entrepreneur. Open for change
-            </Typography>
+          <CardContent className={styles.removePadding}>
+            {data.projects && data.projects.length === 0 && (
+              <div style={{ marginLeft: 20 }}>
+                <Typography variant="subtitle1" paragraph color="textSecondary">
+                  No projects found
+                </Typography>
+              </div>
+            )}
           </CardContent>
         </Card>
       </Grid>
@@ -88,11 +143,21 @@ const Home = props => {
         <Card className={styles.card}>
           <CardHeader title="Experience" />
           <Divider />
-          <CardContent>
-            <Typography variant="subtitle1" paragraph>
-              A software engineer that loves learning new things and aspiring
-              entrepreneur. Open for change
-            </Typography>
+          <CardContent className={styles.removePadding}>
+            <List>
+              {data.work && data.work.map(item => <DetailTile viewMode />)}
+              {data.work && data.work.length === 0 && (
+                <div style={{ marginLeft: 20 }}>
+                  <Typography
+                    variant="subtitle1"
+                    paragraph
+                    color="textSecondary"
+                  >
+                    No experience found
+                  </Typography>
+                </div>
+              )}
+            </List>
           </CardContent>
         </Card>
       </Grid>
@@ -100,11 +165,22 @@ const Home = props => {
         <Card className={styles.card}>
           <CardHeader title="Education" />
           <Divider />
-          <CardContent>
-            <Typography variant="subtitle1" paragraph>
-              A software engineer that loves learning new things and aspiring
-              entrepreneur. Open for change
-            </Typography>
+          <CardContent className={styles.removePadding}>
+            <List>
+              {data.education &&
+                data.education.map(item => <EducationItem viewMode />)}
+              {data.education && data.education.length === 0 && (
+                <div style={{ marginLeft: 20 }}>
+                  <Typography
+                    variant="subtitle1"
+                    paragraph
+                    color="textSecondary"
+                  >
+                    No education found
+                  </Typography>
+                </div>
+              )}
+            </List>
           </CardContent>
         </Card>
       </Grid>
@@ -112,11 +188,14 @@ const Home = props => {
         <Card className={styles.card}>
           <CardHeader title="Languages" />
           <Divider />
-          <CardContent>
-            <Typography variant="subtitle1" paragraph>
-              A software engineer that loves learning new things and aspiring
-              entrepreneur. Open for change
-            </Typography>
+          <CardContent className={styles.removePadding}>
+            {data.lang && data.lang.length === 0 && (
+              <div style={{ marginLeft: 20 }}>
+                <Typography variant="subtitle1" paragraph color="textSecondary">
+                  No languages found
+                </Typography>
+              </div>
+            )}
           </CardContent>
         </Card>
       </Grid>
@@ -124,11 +203,32 @@ const Home = props => {
         <Card className={styles.card}>
           <CardHeader title="Social Media" />
           <Divider />
-          <CardContent>
-            <Typography variant="subtitle1" paragraph>
-              A software engineer that loves learning new things and aspiring
-              entrepreneur. Open for change
-            </Typography>
+          <CardContent className={styles.removePadding}>
+            <List disablePadding dense>
+              {data.socials &&
+                data.socials.map(media => (
+                  <div key={media.link}>
+                    <SocialMediaItem
+                      key={media.link}
+                      link={media.link}
+                      type={media.type}
+                      viewMode
+                    />
+                    <Divider />
+                  </div>
+                ))}
+              {data.socials && data.socials.length === 0 && (
+                <div style={{ marginLeft: 20 }}>
+                  <Typography
+                    variant="subtitle1"
+                    paragraph
+                    color="textSecondary"
+                  >
+                    No social media/s found
+                  </Typography>
+                </div>
+              )}
+            </List>
           </CardContent>
         </Card>
       </Grid>
