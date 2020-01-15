@@ -73,9 +73,7 @@ const useStyles = makeStyles(theme => ({
   menuButtonHidden: {
     display: "none"
   },
-  title: {
-    flexGrow: 1
-  },
+  title: {},
   drawerPaper: {
     position: "relative",
     whiteSpace: "nowrap",
@@ -120,8 +118,8 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const menuOpen = Boolean(anchorEl);
+
+  const isAuthenticated = true;
 
   const match = useRouteMatch();
 
@@ -134,28 +132,22 @@ const Dashboard = () => {
     setOpen(false);
   };
 
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open)}>
         <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open)}
-          >
-            <MenuIcon />
-          </IconButton>
+          {isAuthenticated && (
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(classes.menuButton, open)}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           <Link
             variant="h6"
             color="inherit"
@@ -165,59 +157,44 @@ const Dashboard = () => {
           >
             Portfolio Builder
           </Link>
-          <IconButton color="inherit" onClick={handleMenu}>
-            <Avatar src="https://avatars0.githubusercontent.com/u/13887767?v=4" />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right"
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right"
-            }}
-            open={menuOpen}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={() => console.log("Sign out")}>
-              Sign Out
-            </MenuItem>
-          </Menu>
         </Toolbar>
       </AppBar>
-      <Hidden smDown>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
-          }}
-          open={open}
-        >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <DrawerItems />
-          </List>
-        </Drawer>
-      </Hidden>
+      {isAuthenticated && (
+        <>
+          <Hidden smDown>
+            <Drawer
+              variant="permanent"
+              classes={{
+                paper: clsx(
+                  classes.drawerPaper,
+                  !open && classes.drawerPaperClose
+                )
+              }}
+              open={open}
+            >
+              <div className={classes.toolbarIcon}>
+                <IconButton onClick={handleDrawerClose}>
+                  <ChevronLeftIcon />
+                </IconButton>
+              </div>
+              <Divider />
+              <List>
+                <DrawerItems />
+              </List>
+            </Drawer>
+          </Hidden>
 
-      <Hidden mdUp>
-        <SwipeableDrawer
-          open={open}
-          onClose={handleDrawerClose}
-          onOpen={handleDrawerOpen}
-        >
-          <DrawerItems onClose={handleDrawerClose} />
-        </SwipeableDrawer>
-      </Hidden>
+          <Hidden mdUp>
+            <SwipeableDrawer
+              open={open}
+              onClose={handleDrawerClose}
+              onOpen={handleDrawerOpen}
+            >
+              <DrawerItems onClose={handleDrawerClose} />
+            </SwipeableDrawer>
+          </Hidden>
+        </>
+      )}
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

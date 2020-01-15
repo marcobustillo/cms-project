@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import {
   createMuiTheme,
   responsiveFontSizes,
@@ -19,6 +19,7 @@ function App() {
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <BrowserRouter>
           <Switch>
+            <Route exact path="/login" component={() => <div>login</div>} />
             <Dashboard />
           </Switch>
         </BrowserRouter>

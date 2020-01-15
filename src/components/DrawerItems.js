@@ -8,16 +8,33 @@ import WorkIcon from "@material-ui/icons/Work";
 import SchoolIcon from "@material-ui/icons/School";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import StarsIcon from "@material-ui/icons/Stars";
+import ProfileIcon from "@material-ui/icons/AccountBox";
+import SignOut from "@material-ui/icons/ExitToApp";
 
 const DrawerItems = props => {
   const history = useHistory();
   const { onClose } = props;
+  const id = "marcobustillo";
   return (
     <div>
       <ListItem
         button
         onClick={() => {
-          history.push("/about");
+          history.push(`/${id}`);
+          if (onClose) {
+            onClose();
+          }
+        }}
+      >
+        <ListItemIcon>
+          <ProfileIcon />
+        </ListItemIcon>
+        <ListItemText primary="Profile" />
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          history.push(`/${id}/about`);
           if (onClose) {
             onClose();
           }
@@ -31,7 +48,7 @@ const DrawerItems = props => {
       <ListItem
         button
         onClick={() => {
-          history.push("/work");
+          history.push(`/${id}/work`);
           if (onClose) {
             onClose();
           }
@@ -45,7 +62,7 @@ const DrawerItems = props => {
       <ListItem
         button
         onClick={() => {
-          history.push("/education");
+          history.push(`/${id}/education`);
           if (onClose) {
             onClose();
           }
@@ -59,7 +76,7 @@ const DrawerItems = props => {
       <ListItem
         button
         onClick={() => {
-          history.push("/skills");
+          history.push(`/${id}/skills`);
           if (onClose) {
             onClose();
           }
@@ -73,7 +90,7 @@ const DrawerItems = props => {
       <ListItem
         button
         onClick={() => {
-          history.push("/social-media");
+          history.push(`/${id}/social-media`);
           if (onClose) {
             onClose();
           }
@@ -83,6 +100,17 @@ const DrawerItems = props => {
           <StarsIcon />
         </ListItemIcon>
         <ListItemText primary="Social Media" />
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          console.log("signout");
+        }}
+      >
+        <ListItemIcon>
+          <SignOut />
+        </ListItemIcon>
+        <ListItemText primary="Sign out" />
       </ListItem>
     </div>
   );

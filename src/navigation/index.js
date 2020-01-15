@@ -13,30 +13,35 @@ const Router = memo(props => {
     {
       path: `${match.url}`,
       exact: true,
+      main: () => <div>test</div>
+    },
+    {
+      path: `${match.url}:id`,
+      exact: true,
       main: () => <Home />
     },
     {
-      path: `${match.url}about`,
+      path: `${match.url}:id/about`,
       exact: true,
       main: () => <About />
     },
     {
-      path: `${match.url}work`,
+      path: `${match.url}:id/work`,
       exact: true,
       main: () => <Work />
     },
     {
-      path: `${match.url}education`,
+      path: `${match.url}:id/education`,
       exact: true,
       main: () => <Education />
     },
     {
-      path: `${match.url}skills`,
+      path: `${match.url}:id/skills`,
       exact: true,
       main: () => <Skills />
     },
     {
-      path: `${match.url}social-media`,
+      path: `${match.url}:id/social-media`,
       exact: true,
       main: () => <SocialMedia />
     }
