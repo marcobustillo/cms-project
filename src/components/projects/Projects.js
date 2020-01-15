@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
-import Fab from "./FloatingAction";
+import Fab from "../FloatingAction";
 import ProjectItem from "./ProjectItem";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import ProjectModalItem from "./ProjectModalItem";
-import { getApi } from "../utils/api";
-import { store } from "../utils/store";
+import { getApi } from "../../utils/api";
+import { store } from "../../utils/store";
 
 const Projects = props => {
   const [open, setOpen] = useState(false);

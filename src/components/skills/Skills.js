@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { List, Typography } from "@material-ui/core";
 import ListItem from "./ListItem";
-import Fab from "./FloatingAction";
-import Modal from "./Modal";
+import Fab from "../FloatingAction";
+import Modal from "../Modal";
 import SkillModalItems from "./SkillModalItems";
-import { getApi } from "../utils/api";
-import { store } from "../utils/store";
+import { getApi } from "../../utils/api";
+import { store } from "../../utils/store";
 
 const Skills = props => {
   const [open, setOpen] = useState(false);

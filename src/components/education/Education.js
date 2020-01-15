@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import EducationTile from "./EducationTile";
-import Fab from "./FloatingAction";
-import Modal from "./Modal";
+import Fab from "../FloatingAction";
+import Modal from "../Modal";
 import EducationModalItem from "./EducationModalItem";
-import { getApi } from "../utils/api";
-import { store } from "../utils/store";
+import { getApi } from "../../utils/api";
+import { store } from "../../utils/store";
 
 const Education = props => {
   const [open, setOpen] = useState(false);

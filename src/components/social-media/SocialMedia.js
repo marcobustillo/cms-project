@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { List, Typography } from "@material-ui/core";
 import SocialMediaItem from "./SocialMediaItem";
-import Fab from "./FloatingAction";
-import Modal from "./Modal";
+import Fab from "../FloatingAction";
+import Modal from "../Modal";
 import SocialMediaModalItems from "./SocialMediaModalItems";
-import { getApi } from "../utils/api";
-import { store } from "../utils/store";
+import { getApi } from "../../utils/api";
+import { store } from "../../utils/store";
 
 const SocialMedia = props => {
   const [open, setOpen] = useState(false);

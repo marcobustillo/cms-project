@@ -1,7 +1,6 @@
 import React from "react";
-import { TextField, InputAdornment, IconButton } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import ChipInput from "material-ui-chip-input";
-import AddIcon from "@material-ui/icons/Add";
 
 const ProjectModalItem = props => {
   const { data, action } = props;

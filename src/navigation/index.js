@@ -1,12 +1,12 @@
 import React, { memo } from "react";
 import { Route, withRouter } from "react-router-dom";
 import Home from "../components/Home";
-import About from "../components/About";
-import Work from "../components/Work";
-import Education from "../components/Education";
-import Skills from "../components/Skills";
-import SocialMedia from "../components/SocialMedia";
-import Project from "../components/Projects";
+import About from "../components/about/About";
+import Work from "../components/work/Work";
+import Education from "../components/education/Education";
+import Skills from "../components/skills/Skills";
+import SocialMedia from "../components/social-media/SocialMedia";
+import Project from "../components/projects/Projects";
 
 const Router = memo(props => {
   const { match } = props;

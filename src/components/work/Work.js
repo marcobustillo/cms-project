@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import DetailTile from "./DetailTile";
-import Fab from "./FloatingAction";
-import Modal from "./Modal";
+import Fab from "../FloatingAction";
+import Modal from "../Modal";
 import WorkModalItem from "./WorkModalItem";
-import { getApi } from "../utils/api";
-import { store } from "../utils/store";
+import { getApi } from "../../utils/api";
+import { store } from "../../utils/store";
 
 const Work = props => {
   const [open, setOpen] = useState(false);

@@ -9,10 +9,10 @@ import {
   List
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import SkillItem from "./ListItem";
-import SocialMediaItem from "./SocialMediaItem";
-import EducationItem from "./EducationTile";
-import DetailTile from "./DetailTile";
+import SkillItem from "./skills/ListItem";
+import SocialMediaItem from "./social-media/SocialMediaItem";
+import EducationItem from "./education/EducationTile";
+import DetailTile from "./work/DetailTile";
 import { getApi } from "../utils/api";
 import { store } from "../utils/store";
 
