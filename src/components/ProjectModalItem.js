@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField, InputAdornment, IconButton } from "@material-ui/core";
+import ChipInput from "material-ui-chip-input";
 import AddIcon from "@material-ui/icons/Add";
 
 const ProjectModalItem = props => {
@@ -34,24 +35,15 @@ const ProjectModalItem = props => {
         variant="outlined"
         placeholder="Ex: https://twitterclone.com"
       />
-      <TextField
+      <ChipInput
         fullWidth
         id="technologies"
         label="Technologies"
         margin="dense"
         variant="outlined"
-        placeholder="Ex: ReactJS, NodeJS"
+        placeholder="Ex: ReactJS. Press enter to add technology"
         onKeyPress={e => {
           e.key === "Enter" && e.preventDefault();
-        }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton aria-label="toggle password visibility">
-                <AddIcon />
-              </IconButton>
-            </InputAdornment>
-          )
         }}
       />
       <TextField

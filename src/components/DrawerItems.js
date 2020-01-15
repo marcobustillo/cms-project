@@ -10,6 +10,7 @@ import BarChartIcon from "@material-ui/icons/BarChart";
 import StarsIcon from "@material-ui/icons/Stars";
 import ProfileIcon from "@material-ui/icons/AccountBox";
 import ProjectIcon from "@material-ui/icons/AccountTree";
+import LanguageIcon from "@material-ui/icons/Language";
 import SignOut from "@material-ui/icons/ExitToApp";
 
 const DrawerItems = props => {
@@ -101,6 +102,20 @@ const DrawerItems = props => {
           <BarChartIcon />
         </ListItemIcon>
         <ListItemText primary="Skills" />
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          history.push(`/${id}/language`);
+          if (onClose) {
+            onClose();
+          }
+        }}
+      >
+        <ListItemIcon>
+          <LanguageIcon />
+        </ListItemIcon>
+        <ListItemText primary="Language" />
       </ListItem>
       <ListItem
         button
