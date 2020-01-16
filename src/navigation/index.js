@@ -8,6 +8,7 @@ import Skills from "../components/skills/Skills";
 import SocialMedia from "../components/social-media/SocialMedia";
 import Project from "../components/projects/Projects";
 import Language from "../components/language/Language";
+import Article from "../components/article/Article";
 
 const Router = memo(props => {
   const { match } = props;
@@ -15,7 +16,7 @@ const Router = memo(props => {
     {
       path: `${match.url}`,
       exact: true,
-      main: () => <div>test</div>
+      main: () => <Article />
     },
     {
       path: `${match.url}:id`,

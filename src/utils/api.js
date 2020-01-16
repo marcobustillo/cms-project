@@ -6,4 +6,9 @@ const getApi = async id => {
   return result;
 };
 
-export { getApi };
+const getData = async route => {
+  const result = await axios.get(`${URL}${route}`);
+  return result;
+};
+
+export { getApi, getData };

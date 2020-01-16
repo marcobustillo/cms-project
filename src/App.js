@@ -10,6 +10,8 @@ import MomentUtils from "@date-io/moment";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import { StateProvider } from "./utils/store";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   let theme = createMuiTheme();
