@@ -13,6 +13,7 @@ import SkillItem from "./skills/ListItem";
 import SocialMediaItem from "./social-media/SocialMediaItem";
 import EducationItem from "./education/EducationTile";
 import DetailTile from "./work/DetailTile";
+import Showcase from "./Showcase";
 import { getApi } from "../utils/api";
 import { store } from "../utils/store";
 
@@ -76,6 +77,9 @@ const Home = props => {
             </Grid>
           </CardContent>
         </Card>
+      </Grid>
+      <Grid item xs={12} md={12} lg={12}>
+        <Showcase />
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
