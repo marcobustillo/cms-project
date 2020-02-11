@@ -21,7 +21,7 @@ const Showcase = props => {
       <CardHeader title="Your JSON API to supply data to your portfolion and resume" />
       <Tooltip
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => setTimeout(() => setOpen(false), 3000)}
         title="Copied"
         arrow
         placement="top-end"
