@@ -3,7 +3,7 @@ import { Typography, Paper, Button } from "@material-ui/core";
 import { Edit, Cancel, Save } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import PersonDetail from "./PersonDetail";
-import { getApi } from "../../utils/api";
+import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
 const useStyles = makeStyles({
@@ -56,6 +56,15 @@ const About = props => {
     setFormValues({ ...formValues, [id]: value });
   };
 
+  const handleSubmit = async () => {
+    try {
+      const result = await postApi({ ...data, ...formValues });
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (loading) return <div />;
 
   return (
@@ -77,7 +86,11 @@ const About = props => {
               >
                 Cancel
               </Button>
-              <Button color="primary" endIcon={<Save>save</Save>}>
+              <Button
+                color="primary"
+                endIcon={<Save>save</Save>}
+                onClick={handleSubmit}
+              >
                 Save
               </Button>
             </>
