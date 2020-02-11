@@ -9,6 +9,7 @@ import {
 
 const ArticleItem = props => {
   const { data } = props;
+
   return (
     <Card>
       <CardActionArea href={data.url} target="_blank">
@@ -20,7 +21,7 @@ const ArticleItem = props => {
         />
         <CardContent>
           <Typography variant="caption" color="textSecondary">
-            dev.to
+            {data.url}
           </Typography>
           <Typography gutterBottom variant="h6">
             {data.title}
