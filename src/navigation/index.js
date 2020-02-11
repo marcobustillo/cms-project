@@ -1,5 +1,6 @@
 import React, { memo } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 import Home from "../components/Home";
 import About from "../components/about/About";
 import Work from "../components/work/Work";
@@ -16,11 +17,13 @@ const Router = memo(props => {
     {
       path: `${match.url}`,
       exact: true,
+      exempt: true,
       main: () => <Article />
     },
     {
       path: `${match.url}:id`,
       exact: true,
+      exempt: true,
       main: () => <Home />
     },
     {
@@ -63,10 +66,11 @@ const Router = memo(props => {
   return (
     <>
       {routes.map(route => (
-        <Route
+        <PrivateRoute
           key={route.path}
           path={route.path}
           exact={route.exact}
+          exempt={route.exempt}
           component={route.main}
         />
       ))}

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import {
   createMuiTheme,
   responsiveFontSizes,
@@ -16,14 +16,12 @@ import "slick-carousel/slick/slick-theme.css";
 function App() {
   let theme = createMuiTheme();
   theme = responsiveFontSizes(theme);
-
   return (
     <ThemeProvider theme={theme}>
       <StateProvider>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/login" component={() => <div>login</div>} />
               <Dashboard />
             </Switch>
           </BrowserRouter>

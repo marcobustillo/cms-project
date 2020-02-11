@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { useRouteMatch } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import { Link as RouterLink } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
@@ -19,6 +20,7 @@ import Hidden from "@material-ui/core/Hidden";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import DrawerItems from "./DrawerItems";
 import Router from "../navigation";
+import { store } from "../utils/store";
 
 function Copyright() {
   return (
@@ -70,7 +72,7 @@ const useStyles = makeStyles(theme => ({
   menuButtonHidden: {
     display: "none"
   },
-  title: {},
+  title: { flexGrow: 1 },
   drawerPaper: {
     position: "relative",
     whiteSpace: "nowrap",
@@ -114,9 +116,11 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const {
+    state: { isAuthenticated },
+    dispatch
+  } = useContext(store);
   const [open, setOpen] = React.useState(false);
-
-  const isAuthenticated = true;
 
   const match = useRouteMatch();
 
@@ -132,7 +136,10 @@ const Dashboard = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open)}>
+      <AppBar
+        position="absolute"
+        className={clsx(classes.appBar, open && classes.appBarShift)}
+      >
         <Toolbar className={classes.toolbar}>
           {isAuthenticated && (
             <IconButton
@@ -145,15 +152,12 @@ const Dashboard = () => {
               <MenuIcon />
             </IconButton>
           )}
-          <Link
-            variant="h6"
-            color="inherit"
-            className={classes.title}
-            component={RouterLink}
-            to="/"
-          >
-            Portfolio Builder
-          </Link>
+          <div className={classes.title}>
+            <Link variant="h6" color="inherit" component={RouterLink} to="/">
+              Portfolio Builder
+            </Link>
+          </div>
+          {!isAuthenticated && <Button color="inherit">Sign In/Sign Up</Button>}
         </Toolbar>
       </AppBar>
       {isAuthenticated && (
