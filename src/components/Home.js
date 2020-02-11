@@ -83,18 +83,6 @@ const Home = props => {
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
-          <CardHeader title="About" />
-          <Divider />
-          <CardContent>
-            <Typography variant="subtitle1" paragraph>
-              A software engineer that loves learning new things and aspiring
-              entrepreneur. Open for change
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={12} lg={12}>
-        <Card className={styles.card}>
           <CardHeader title="Skills" />
           <Divider />
           <CardContent className={styles.removePadding}>
