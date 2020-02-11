@@ -54,22 +54,28 @@ const Home = props => {
         <Card className={styles.card}>
           <CardContent>
             <Grid container spacing={3} alignItems="center">
-              <Grid item xs={12} md={2} lg={2}>
-                <img
-                  src="https://avatars0.githubusercontent.com/u/13887767?v=4"
-                  style={{
-                    width: "200px",
-                    height: "100%",
-                    marginRight: "16px",
-                    borderRadius: "0.28rem"
-                  }}
-                  alt="cu"
-                />
+              <Grid item xs={12} md={4} lg={2}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <img
+                    src="https://avatars0.githubusercontent.com/u/13887767?v=4"
+                    style={{
+                      width: "200px",
+                      height: "100%",
+                      marginRight: "16px",
+                      borderRadius: "0.28rem"
+                    }}
+                    alt="cu"
+                  />
+                </div>
               </Grid>
-              <Grid item xs={12} md={10} lg={10}>
+              <Grid item xs={12} md={8} lg={10}>
                 <Typography variant="h3">{`${data.name} (@${data.username})`}</Typography>
-                <Typography variant="body1">Software Engineer</Typography>
-                <Typography variant="body1">Philippines</Typography>
+                <Typography variant="body1" color="textSecondary">
+                  {data.position ? data.position : "No data found"}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  {data.location ? data.location : "No data found"}
+                </Typography>
                 <Typography variant="subtitle1" paragraph color="textSecondary">
                   {data.about}
                 </Typography>
