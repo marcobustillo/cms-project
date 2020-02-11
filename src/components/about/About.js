@@ -59,7 +59,11 @@ const About = props => {
   const handleSubmit = async () => {
     try {
       const result = await postApi({ ...data, ...formValues });
-      console.log(result);
+      dispatch({
+        type: "getUser",
+        payload: result.data
+      });
+      setIsEdit(false);
     } catch (err) {
       console.log(err);
     }
