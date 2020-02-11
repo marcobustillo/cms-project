@@ -134,7 +134,7 @@ const DrawerItems = props => {
       <ListItem
         button
         onClick={() => {
-          console.log("signout");
+          localStorage.clear();
         }}
       >
         <ListItemIcon>
