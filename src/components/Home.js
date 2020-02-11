@@ -67,7 +67,7 @@ const Home = props => {
                 />
               </Grid>
               <Grid item xs={12} md={10} lg={10}>
-                <Typography variant="h3">{data.name}</Typography>
+                <Typography variant="h3">{`${data.name} (@${data.username})`}</Typography>
                 <Typography variant="body1">Software Engineer</Typography>
                 <Typography variant="body1">Philippines</Typography>
                 <Typography variant="subtitle1" paragraph color="textSecondary">
