@@ -45,7 +45,11 @@ export default () => {
             </Link>
           </Grid>
           <Grid item>
-            <Link variant="body2" onClick={() => setState(1)}>
+            <Link
+              variant="body2"
+              onClick={() => setState(1)}
+              style={{ cursor: "pointer" }}
+            >
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
@@ -55,7 +59,11 @@ export default () => {
       {state === 1 && (
         <Grid container justify="flex-end">
           <Grid item>
-            <Link variant="body2" onClick={() => setState(0)}>
+            <Link
+              variant="body2"
+              onClick={() => setState(0)}
+              style={{ cursor: "pointer" }}
+            >
               Already have an account? Sign in
             </Link>
           </Grid>
