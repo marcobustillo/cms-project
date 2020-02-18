@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -20,6 +20,8 @@ import Hidden from "@material-ui/core/Hidden";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import DrawerItems from "./DrawerItems";
 import Router from "../navigation";
+import Modal from "./Modal";
+import Auth from "./auth";
 import { store } from "../utils/store";
 
 function Copyright() {
@@ -116,6 +118,7 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const [modalOpen, setModalOpen] = useState(false);
   const {
     state: { isAuthenticated },
     dispatch
@@ -157,7 +160,11 @@ const Dashboard = () => {
               Portfolio Builder
             </Link>
           </div>
-          {!isAuthenticated && <Button color="inherit">Sign In/Sign Up</Button>}
+          {!isAuthenticated && (
+            <Button color="inherit" onClick={() => setModalOpen(true)}>
+              Sign In/Sign Up
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       {isAuthenticated && (
@@ -209,6 +216,13 @@ const Dashboard = () => {
             <Copyright />
           </div>
         </Container>
+        <Modal
+          open={modalOpen}
+          noAction
+          handleClose={() => setModalOpen(false)}
+        >
+          <Auth />
+        </Modal>
       </main>
     </div>
   );

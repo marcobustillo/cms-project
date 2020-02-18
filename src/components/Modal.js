@@ -8,18 +8,20 @@ import {
 } from "@material-ui/core";
 
 const Modal = props => {
-  const { open, handleClose } = props;
+  const { open, handleClose, noAction } = props;
   return (
     <Dialog fullWidth maxWidth="sm" onClose={handleClose} open={open}>
       <form onSubmit={props.handleSubmit}>
-        <DialogTitle>{props.title}</DialogTitle>
+        {props.title && <DialogTitle>{props.title}</DialogTitle>}
         <DialogContent>{props.children}</DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button color="secondary" type="submit">
-            Save
-          </Button>
-        </DialogActions>
+        {!noAction && (
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button color="secondary" type="submit">
+              Save
+            </Button>
+          </DialogActions>
+        )}
       </form>
     </Dialog>
   );

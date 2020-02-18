@@ -16,4 +16,9 @@ const getData = async route => {
   return result;
 };
 
-export { getApi, getData, postApi };
+const postData = async (route, data) => {
+  const result = await axios.post(`${URL}/api/${route}`, data);
+  return result;
+};
+
+export { getApi, getData, postApi, postData };
