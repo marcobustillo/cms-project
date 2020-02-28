@@ -6,6 +6,7 @@ import {
   ThemeProvider
 } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { SnackbarProvider } from "notistack";
 import MomentUtils from "@date-io/moment";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
@@ -19,13 +20,15 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <StateProvider>
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-          <BrowserRouter>
-            <Switch>
-              <Dashboard />
-            </Switch>
-          </BrowserRouter>
-        </MuiPickersUtilsProvider>
+        <SnackbarProvider maxSnack={1}>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <BrowserRouter>
+              <Switch>
+                <Dashboard />
+              </Switch>
+            </BrowserRouter>
+          </MuiPickersUtilsProvider>
+        </SnackbarProvider>
       </StateProvider>
     </ThemeProvider>
   );

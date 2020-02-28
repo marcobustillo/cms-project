@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Typography, Paper, Button } from "@material-ui/core";
 import { Edit, Cancel, Save } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSnackbar } from "notistack";
 import PersonDetail from "./PersonDetail";
 import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
@@ -14,6 +15,7 @@ const useStyles = makeStyles({
 
 const About = props => {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
   const [isEdit, setIsEdit] = useState(false);
   const {
     state: { loading, data },
@@ -59,13 +61,17 @@ const About = props => {
   const handleSubmit = async () => {
     try {
       const result = await postApi({ ...data, ...formValues });
-      dispatch({
-        type: "getUser",
-        payload: result.data
-      });
-      setIsEdit(false);
+      if (result) {
+        dispatch({
+          type: "getUser",
+          payload: result.data
+        });
+        setIsEdit(false);
+        enqueueSnackbar("Successfully updated", { variant: "success" });
+      }
     } catch (err) {
       console.log(err);
+      enqueueSnackbar("Somehing went wrong...", { variant: "error" });
     }
   };
 

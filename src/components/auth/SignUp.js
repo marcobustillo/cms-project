@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 import { postData } from "../../utils/api";
 
 const SignUp = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [formValues, setFormValues] = useState({
     username: "",
     password: "",
@@ -21,6 +23,7 @@ const SignUp = () => {
       console.log(result);
     } catch (err) {
       console.log(err);
+      enqueueSnackbar("Something went wrong...", { variant: "error" });
     }
   };
 
