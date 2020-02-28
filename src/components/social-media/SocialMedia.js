@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import { List, Typography } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 import SocialMediaItem from "./SocialMediaItem";
 import Fab from "../FloatingAction";
 import Modal from "../Modal";
 import SocialMediaModalItems from "./SocialMediaModalItems";
-import { getApi } from "../../utils/api";
+import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
 const SocialMedia = props => {
   const [open, setOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const [modalTitle, setModalTitle] = useState("Add Social Media");
   const [formValues, setFormValues] = useState({
     link: "",
@@ -37,24 +39,26 @@ const SocialMedia = props => {
     getUser();
   }, []);
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const { socials } = data;
-    dispatch({
-      type: "getUser",
-      payload: {
+  const handleSubmit = async event => {
+    try {
+      event.preventDefault();
+      const result = await postApi({
         ...data,
-        socials: socials.concat({
-          type: "Twitter",
-          link: "https://twitter.com"
-        })
-      }
-    });
+        socials: [...data.socials, formValues]
+      });
+      dispatch({
+        type: "getUser",
+        payload: result.data
+      });
+      enqueueSnackbar("Success!", { variant: "success" });
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar("Something went wrong...!", { variant: "success" });
+    }
   };
 
   const handleChange = event => {
     const { id, value } = event.target;
-
     setFormValues({ ...formValues, [id]: value });
   };
 
