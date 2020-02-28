@@ -165,7 +165,9 @@ const Home = props => {
           <CardContent className={styles.removePadding}>
             <List>
               {data.education &&
-                data.education.map(item => <EducationItem viewMode />)}
+                data.education.map((item, i) => (
+                  <EducationItem key={i.toString()} data={item} viewMode />
+                ))}
               {data.education && data.education.length === 0 && (
                 <div style={{ marginLeft: 20 }}>
                   <Typography

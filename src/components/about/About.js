@@ -24,8 +24,8 @@ const About = props => {
   const [formValues, setFormValues] = useState({
     username: data.username,
     name: data.name,
-    position: "",
-    location: "",
+    position: data.position,
+    location: data.location,
     about: data.about
   });
 
@@ -123,14 +123,6 @@ const About = props => {
           description={data.name}
           isEditMode={isEdit}
           value={formValues.name}
-          onChange={handleChange}
-        />
-        <PersonDetail
-          id="username"
-          title="Username"
-          description={`@${data.username}`}
-          isEditMode={isEdit}
-          value={formValues.username}
           onChange={handleChange}
         />
         <PersonDetail
