@@ -3,6 +3,7 @@ import { Paper, Typography, IconButton } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
 const EducationTile = props => {
+  const { data } = props;
   return (
     <Paper style={{ padding: 20 }} elevation={props.viewMode ? 0 : 1}>
       <div
@@ -14,7 +15,7 @@ const EducationTile = props => {
         }}
       >
         <Typography variant="h5" component="h2">
-          Technological University of the Philippines
+          {data.institution}
         </Typography>
         {!props.viewMode && (
           <IconButton
@@ -33,7 +34,7 @@ const EducationTile = props => {
         color="textSecondary"
         gutterBottom
       >
-        BS in Computer Science
+        {data.studyType}
       </Typography>
       <Typography
         variant="caption"
@@ -41,7 +42,7 @@ const EducationTile = props => {
         color="textSecondary"
         gutterBottom
       >
-        Manila, Philippines
+        {data.location}
       </Typography>
       <Typography
         variant="subtitle2"
@@ -57,7 +58,7 @@ const EducationTile = props => {
         color="textSecondary"
         gutterBottom
       >
-        Description......
+        {data.area}
       </Typography>
     </Paper>
   );

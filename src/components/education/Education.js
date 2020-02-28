@@ -1,23 +1,25 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 import EducationTile from "./EducationTile";
 import Fab from "../FloatingAction";
 import Modal from "../Modal";
 import EducationModalItem from "./EducationModalItem";
-import { getApi } from "../../utils/api";
+import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
 const Education = props => {
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Education");
   const [current, setCurrent] = useState(false);
   const [startDate, handleStartDate] = useState(new Date());
   const [endDate, handleEndDate] = useState(new Date());
   const [formValues, setFormValues] = useState({
-    company: "",
-    position: "",
+    institution: "",
+    area: "",
     location: "",
-    summary: ""
+    studyType: ""
   });
 
   const {
@@ -54,10 +56,10 @@ const Education = props => {
   const handleEdit = values => {
     setModalTitle("Edit Education");
     setFormValues({
-      company: "",
-      position: "",
+      institution: "",
+      area: "",
       location: "",
-      summary: ""
+      studyType: ""
     });
     setCurrent(false);
     handleStartDate(new Date());
@@ -66,14 +68,28 @@ const Education = props => {
   };
 
   const handleSubmit = async event => {
-    event.preventDefault();
-    const body = {
-      ...formValues,
-      isCurrent: current,
-      startDate,
-      endDate
-    };
-    console.log(body);
+    try {
+      event.preventDefault();
+      const body = {
+        ...formValues,
+        isCurrent: current,
+        startDate,
+        endDate
+      };
+      const result = await postApi({
+        ...data,
+        education: [...data.education, body]
+      });
+      dispatch({
+        type: "getUser",
+        payload: result.data
+      });
+      setOpen(false);
+      enqueueSnackbar("Success!", { variant: "success" });
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar("Something went wrong...!", { variant: "error" });
+    }
   };
 
   const handleOpenModal = () => {
@@ -87,9 +103,9 @@ const Education = props => {
       {data.education && data.education.length > 0 && (
         <Grid container spacing={3}>
           {data.education &&
-            data.education.map(item => (
-              <Grid item xs={12} md={6} lg={6}>
-                <EducationTile onClick={() => handleEdit("test")} />
+            data.education.map((item, i) => (
+              <Grid item xs={12} md={6} lg={6} key={i.toString()}>
+                <EducationTile data={item} onClick={() => handleEdit("test")} />
               </Grid>
             ))}
         </Grid>

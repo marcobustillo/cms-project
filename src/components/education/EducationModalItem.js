@@ -18,23 +18,23 @@ const EducationModalItem = props => {
       <TextField
         fullWidth
         required
-        id="position"
+        id="institution"
         label="School/Institution"
         margin="dense"
         variant="outlined"
         placeholder="Ex: Harvard School of Business"
-        value={data.position}
+        value={data.institution}
         onChange={action}
       />
       <TextField
         fullWidth
         required
-        id="company"
+        id="studyType"
         label="Degree and Type of Study"
         margin="dense"
         variant="outlined"
         placeholder="Ex: BS in Computer Science"
-        value={data.company}
+        value={data.studyType}
         onChange={action}
       />
       <FormControlLabel
@@ -92,14 +92,14 @@ const EducationModalItem = props => {
       />
       <TextField
         fullWidth
-        id="summary"
+        id="area"
         label="Description"
         margin="dense"
         multiline
         rows={4}
         rowsMax={4}
         variant="outlined"
-        value={data.summary}
+        value={data.area}
         onChange={action}
       />
     </>
