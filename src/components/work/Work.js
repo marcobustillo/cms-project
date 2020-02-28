@@ -1,10 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 import DetailTile from "./DetailTile";
 import Fab from "../FloatingAction";
 import Modal from "../Modal";
 import WorkModalItem from "./WorkModalItem";
-import { getApi } from "../../utils/api";
+import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
 const Work = props => {
@@ -13,6 +14,7 @@ const Work = props => {
   const [current, setCurrent] = useState(false);
   const [startDate, handleStartDate] = useState(new Date());
   const [endDate, handleEndDate] = useState(new Date());
+  const { enqueueSnackbar } = useSnackbar();
   const [formValues, setFormValues] = useState({
     company: "",
     position: "",
@@ -67,14 +69,27 @@ const Work = props => {
   };
 
   const handleSubmit = async event => {
-    event.preventDefault();
-    const body = {
-      ...formValues,
-      isCurrent: current,
-      startDate,
-      endDate
-    };
-    console.log(body);
+    try {
+      event.preventDefault();
+      const body = {
+        ...formValues,
+        isCurrent: current,
+        startDate,
+        endDate
+      };
+      const result = await postApi({ ...data, work: [...data.work, body] });
+      if (result) {
+        dispatch({
+          type: "getUser",
+          payload: result.data
+        });
+        setOpen(false);
+        enqueueSnackbar("Sucess!", { variant: "success" });
+      }
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar("Something went wrong...", { variant: "error" });
+    }
   };
 
   const handleOpenModal = () => {
@@ -88,9 +103,9 @@ const Work = props => {
       {data.work && data.work.length > 0 && (
         <Grid container spacing={3}>
           {data.work &&
-            data.work.map(item => (
-              <Grid item xs={12} md={6} lg={6}>
-                <DetailTile onClick={() => handleEdit("test")} />
+            data.work.map((item, i) => (
+              <Grid item xs={12} md={6} lg={6} key={i.toString()}>
+                <DetailTile data={item} onClick={() => handleEdit("test")} />
               </Grid>
             ))}
         </Grid>
