@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
 
 const ListItem = props => {
   const classes = useStyles();
-
   return (
     <MUIListItem className={classes.container}>
       <ListItemText

@@ -95,13 +95,12 @@ const Home = props => {
             <List>
               {data.skills &&
                 data.skills.map(item => (
-                  <div key={item.title}>
+                  <div key={item.name}>
                     <SkillItem
-                      title={item.title}
+                      title={item.name}
                       rating={item.rating}
                       skill={item.level}
                       yearsOfExperience={item.yearsOfExperience}
-                      key={item.title}
                       viewMode
                     />
                     <Divider />

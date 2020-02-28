@@ -1,17 +1,21 @@
 import React, { useEffect, useContext, useState } from "react";
 import { List, Typography } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 import ListItem from "./ListItem";
 import Fab from "../FloatingAction";
 import Modal from "../Modal";
 import SkillModalItems from "./SkillModalItems";
-import { getApi } from "../../utils/api";
+import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
 const Skills = props => {
   const [open, setOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const [modalTitle, setModalTitle] = useState("Add Skill");
-  const [title, setTitle] = useState("");
-  const [years, setYears] = useState(0);
+  const [formValues, setFormValues] = useState({
+    title: "",
+    years: ""
+  });
   const [skill, setSkill] = useState("");
   const [rating, setRating] = useState(0);
 
@@ -56,37 +60,46 @@ const Skills = props => {
 
   const handleOpenModal = () => {
     setModalTitle("Add Skill");
-    setTitle("");
+    setFormValues({
+      title: "",
+      years: 0
+    });
     setSkill("");
     setRating(0);
-    setYears(0);
     setOpen(!open);
   };
 
   const handleEdit = values => {
-    setTitle(values.title);
+    setFormValues({
+      title: values.title,
+      years: values.yearsOfExperience
+    });
     setSkill("Learning");
     setRating(values.rating);
-    setYears(values.yearsOfExperience);
     setModalTitle("Edit Skill");
     setOpen(true);
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const { skills } = data;
-    dispatch({
-      type: "getUser",
-      payload: {
-        ...data,
-        skills: skills.concat({
-          title: "tested",
-          level: "Advanced",
-          rating: 4,
-          yearsOfExperience: 5
-        })
-      }
-    });
+  const handleSubmit = async event => {
+    try {
+      event.preventDefault();
+      const body = {
+        name: formValues.title,
+        level: skill,
+        rating: parseInt(rating),
+        yearsOfExperience: parseInt()
+      };
+      const result = await postApi({ ...data, skills: [...data.skills, body] });
+      dispatch({
+        type: "getUser",
+        payload: result.data
+      });
+      enqueueSnackbar("Success!", { variant: "success" });
+      setOpen(false);
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar("Something went wrong...", { variant: "error" });
+    }
   };
 
   const onChange = event => {
@@ -95,18 +108,23 @@ const Skills = props => {
     setRating(rating);
   };
 
+  const handleChange = event => {
+    const { id, value } = event.target;
+    setFormValues({ ...formValues, [id]: value });
+  };
+
   return (
     <>
       <Typography variant="h4">Skills</Typography>
       <List>
         {data.skills &&
-          data.skills.map(item => (
+          data.skills.map((item, i) => (
             <ListItem
-              title={item.title}
-              rating={item.rating}
+              key={i.toString()}
+              title={item.name}
+              rating={parseInt(item.rating)}
               skill={item.level}
               yearsOfExperience={item.yearsOfExperience}
-              key={item.title}
               onClick={() => handleEdit(item)}
             />
           ))}
@@ -124,11 +142,12 @@ const Skills = props => {
         handleClose={handleOpenModal}
       >
         <SkillModalItems
-          title={title}
-          years={years}
+          title={formValues.title}
+          years={formValues.years}
           rating={rating}
           skill={skill}
           onChange={onChange}
+          handleChange={handleChange}
         />
       </Modal>
     </>

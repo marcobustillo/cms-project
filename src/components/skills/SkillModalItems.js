@@ -16,19 +16,23 @@ const SkillModalItems = props => {
     <>
       <TextField
         fullWidth
+        id="title"
         label="Title"
         margin="dense"
         variant="outlined"
         placeholder="Title"
         value={props.title}
+        onChange={props.handleChange}
       />
       <TextField
         fullWidth
+        id="years"
         label="Years Of Experience"
         margin="dense"
         variant="outlined"
         placeholder="Years of Experience"
         value={props.years}
+        onChange={props.handleChange}
       />
       <FormControl variant="outlined" fullWidth margin="dense">
         <InputLabel ref={inputLabel} htmlFor="level-native-simple">
