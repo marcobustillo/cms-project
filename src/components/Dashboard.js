@@ -120,8 +120,7 @@ const Dashboard = () => {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const {
-    state: { isAuthenticated },
-    dispatch
+    state: { isAuthenticated }
   } = useContext(store);
   const [open, setOpen] = React.useState(false);
 
