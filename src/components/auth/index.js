@@ -1,28 +1,28 @@
 import React, { useState } from "react";
-import { Container, Typography, Avatar, Grid, Link } from "@material-ui/core";
+import { Container, Grid, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import ForgotPassword from "./ForgotPassword";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginBottom: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
-  avatar: {
+  logo: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export default () => {
@@ -30,17 +30,15 @@ export default () => {
   const [state, setState] = useState(0);
   return (
     <Container className={classes.paper}>
-      <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5">
-        {state === 0 ? `Sign In` : `Sign Up`}
-      </Typography>
-      {state === 0 && <SignIn />}
+      {state === 0 && <SignIn className={classes.logo} />}
       {state === 0 && (
         <Grid container>
           <Grid item xs>
-            <Link href="#" variant="body2">
+            <Link
+              onClick={() => setState(2)}
+              variant="body2"
+              style={{ cursor: "pointer" }}
+            >
               Forgot password?
             </Link>
           </Grid>
@@ -55,7 +53,7 @@ export default () => {
           </Grid>
         </Grid>
       )}
-      {state === 1 && <SignUp />}
+      {state === 1 && <SignUp className={classes.logo} />}
       {state === 1 && (
         <Grid container justify="flex-end">
           <Grid item>
@@ -69,6 +67,7 @@ export default () => {
           </Grid>
         </Grid>
       )}
+      {state === 2 && <ForgotPassword className={classes.logo} />}
     </Container>
   );
 };

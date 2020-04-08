@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Avatar, Typography } from "@material-ui/core";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useSnackbar } from "notistack";
 import { postData } from "../../utils/api";
 
-const SignIn = () => {
+const SignIn = (props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [formValues, setFormValues] = useState({
     username: "",
-    password: ""
+    password: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { id, value } = e.target;
     setFormValues({ ...formValues, [id]: value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       const result = await postData("login", formValues);
@@ -27,6 +28,12 @@ const SignIn = () => {
 
   return (
     <>
+      <Avatar className={props.className}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Sign In
+      </Typography>
       <TextField
         fullWidth
         id="username"

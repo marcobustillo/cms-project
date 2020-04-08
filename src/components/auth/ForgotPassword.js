@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { TextField, Button, Avatar, Typography } from "@material-ui/core";
-import SignUpIcon from "@material-ui/icons/PersonAdd";
+import ForgotPasswordIcon from "@material-ui/icons/Help";
 import { useSnackbar } from "notistack";
 import { postData } from "../../utils/api";
 
-const SignUp = (props) => {
+const ForgotPassword = (props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [formValues, setFormValues] = useState({
     username: "",
     password: "",
-    name: "",
   });
 
   const handleChange = (e) => {
@@ -20,48 +19,26 @@ const SignUp = (props) => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const result = await postData("register", formValues);
+      const result = await postData("login", formValues);
       console.log(result);
     } catch (err) {
-      console.log(err);
-      enqueueSnackbar("Something went wrong...", { variant: "error" });
+      enqueueSnackbar("Incorrect username/password", { variant: "error" });
     }
   };
 
   return (
     <>
       <Avatar className={props.className}>
-        <SignUpIcon />
+        <ForgotPasswordIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign Up
+        Forgot Password
       </Typography>
       <TextField
         fullWidth
-        id="username"
-        label="Username"
-        placeholder="Enter username"
-        variant="outlined"
-        margin="dense"
-        style={{ margin: "5px auto" }}
-        onChange={handleChange}
-      />
-      <TextField
-        fullWidth
-        id="password"
-        label="Password"
-        type="password"
-        placeholder="Enter password"
-        variant="outlined"
-        margin="dense"
-        style={{ margin: "5px auto" }}
-        onChange={handleChange}
-      />
-      <TextField
-        fullWidth
-        id="name"
-        label="Full name"
-        placeholder="Enter fullname"
+        id="email"
+        label="Email"
+        placeholder="Enter email"
         variant="outlined"
         margin="dense"
         style={{ margin: "5px auto" }}
@@ -74,10 +51,10 @@ const SignUp = (props) => {
         style={{ margin: "5px auto" }}
         onClick={handleSubmit}
       >
-        Sign Up
+        Send
       </Button>
     </>
   );
 };
 
-export default SignUp;
+export default ForgotPassword;
