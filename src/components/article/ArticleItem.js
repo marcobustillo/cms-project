@@ -4,10 +4,10 @@ import {
   CardContent,
   CardMedia,
   CardActionArea,
-  Typography
+  Typography,
 } from "@material-ui/core";
 
-const ArticleItem = props => {
+const ArticleItem = (props) => {
   const { data } = props;
 
   return (
