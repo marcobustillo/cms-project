@@ -3,6 +3,7 @@ import { TextField, Button, Avatar, Typography } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useSnackbar } from "notistack";
 import { postData } from "../../utils/api";
+import validation from "./authValidation";
 
 const SignIn = (props) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -10,15 +11,22 @@ const SignIn = (props) => {
     username: "",
     password: "",
   });
+  const [errorState, setErrorState] = useState({});
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+    setErrorState({ ...errorState, [id]: "" });
     setFormValues({ ...formValues, [id]: value });
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      const errors = validation(formValues);
+      if (Object.keys(errors).length > 0 && errors.constructor === Object) {
+        setErrorState(errors);
+        return;
+      }
       const result = await postData("login", formValues);
       console.log(result);
     } catch (err) {
@@ -41,6 +49,8 @@ const SignIn = (props) => {
         placeholder="Enter username"
         variant="outlined"
         margin="dense"
+        error={!!errorState.username}
+        helperText={errorState.username}
         style={{ margin: "5px auto" }}
         onChange={handleChange}
       />
@@ -52,6 +62,8 @@ const SignIn = (props) => {
         placeholder="Enter password"
         variant="outlined"
         margin="dense"
+        error={!!errorState.password}
+        helperText={errorState.password}
         style={{ margin: "5px auto" }}
         onChange={handleChange}
       />

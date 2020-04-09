@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 
-const initialState = { loading: false, data: {}, isAuthenticated: true };
+const initialState = { loading: false, data: {}, isAuthenticated: false };
 const store = createContext(initialState);
 const { Provider } = store;
 
