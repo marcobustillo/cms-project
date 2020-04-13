@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { List, Typography } from "@material-ui/core";
 import Fab from "../FloatingAction";
 import LanguageItem from "./LanguageItem";
@@ -7,25 +8,24 @@ import Modal from "../Modal";
 import { getApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
-const Language = props => {
+const Language = (props) => {
+  const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Language");
 
   const {
     state: { loading, data },
-    dispatch
+    dispatch,
   } = useContext(store);
 
   const getUser = async () => {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      dispatch({ type: "fetch" });
-      const result = await getApi("marcobustillo");
-      if (result) {
-        dispatch({
-          type: "getUser",
-          payload: result.data
-        });
-      }
+    dispatch({ type: "fetch" });
+    const result = await getApi(id);
+    if (result) {
+      dispatch({
+        type: "getUser",
+        payload: result.data,
+      });
     }
   };
 
@@ -33,7 +33,7 @@ const Language = props => {
     getUser();
   }, []);
 
-  const handleLanguage = value => {
+  const handleLanguage = (value) => {
     switch (value) {
       case "Learning":
         return 1;
@@ -55,12 +55,12 @@ const Language = props => {
     setOpen(!open);
   };
 
-  const handleEdit = values => {
+  const handleEdit = (values) => {
     setModalTitle("Edit Language");
     setOpen(true);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const { skills } = data;
     dispatch({
@@ -71,9 +71,9 @@ const Language = props => {
           title: "tested",
           level: "Advanced",
           rating: 4,
-          yearsOfExperience: 5
-        })
-      }
+          yearsOfExperience: 5,
+        }),
+      },
     });
   };
 
@@ -82,7 +82,7 @@ const Language = props => {
       <Typography variant="h4">Languages</Typography>
       <List>
         {data.lang &&
-          data.lang.map(item => (
+          data.lang.map((item) => (
             <LanguageItem onClick={() => handleEdit(item)} />
           ))}
         {data.lang && data.lang.length === 0 && (

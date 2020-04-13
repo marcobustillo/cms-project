@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 import {
   Grid,
   Card,
@@ -6,7 +7,7 @@ import {
   CardHeader,
   Typography,
   Divider,
-  List
+  List,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SkillItem from "./skills/ListItem";
@@ -17,31 +18,31 @@ import Showcase from "./Showcase";
 import { getApi } from "../utils/api";
 import { store } from "../utils/store";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   card: {
-    marginBottom: "20px"
+    marginBottom: "20px",
   },
   removePadding: {
     paddingRight: 0,
-    paddingLeft: 0
-  }
+    paddingLeft: 0,
+  },
 }));
 
-const Home = props => {
+const Home = (props) => {
   const styles = useStyles();
+  const { id } = useParams();
 
   const {
-    state: { data },
-    dispatch
+    state: { data, isAuthenticated },
+    dispatch,
   } = useContext(store);
+
   const getUser = async () => {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      const result = await getApi("marcobustillo");
-      dispatch({
-        type: "getUser",
-        payload: result.data
-      });
-    }
+    const result = await getApi(id);
+    dispatch({
+      type: "getUser",
+      payload: result.data,
+    });
   };
 
   React.useEffect(() => {
@@ -62,12 +63,13 @@ const Home = props => {
                       width: "200px",
                       height: "100%",
                       marginRight: "16px",
-                      borderRadius: "0.28rem"
+                      borderRadius: "0.28rem",
                     }}
                     alt="cu"
                   />
                 </div>
               </Grid>
+
               <Grid item xs={12} md={8} lg={10}>
                 <Typography variant="h3">{`${data.name} (@${data.username})`}</Typography>
                 <Typography variant="body1" color="textSecondary">
@@ -85,7 +87,7 @@ const Home = props => {
         </Card>
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
-        <Showcase />
+        {isAuthenticated && <Showcase />}
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
         <Card className={styles.card}>
@@ -94,7 +96,7 @@ const Home = props => {
           <CardContent className={styles.removePadding}>
             <List>
               {data.skills &&
-                data.skills.map(item => (
+                data.skills.map((item) => (
                   <div key={item.name}>
                     <SkillItem
                       title={item.name}
@@ -142,7 +144,7 @@ const Home = props => {
           <Divider />
           <CardContent className={styles.removePadding}>
             <List>
-              {data.work && data.work.map(item => <DetailTile viewMode />)}
+              {data.work && data.work.map((item) => <DetailTile viewMode />)}
               {data.work && data.work.length === 0 && (
                 <div style={{ marginLeft: 20 }}>
                   <Typography
@@ -205,7 +207,7 @@ const Home = props => {
           <CardContent className={styles.removePadding}>
             <List disablePadding dense>
               {data.socials &&
-                data.socials.map(media => (
+                data.socials.map((media) => (
                   <div key={media.link}>
                     <SocialMediaItem
                       key={media.link}

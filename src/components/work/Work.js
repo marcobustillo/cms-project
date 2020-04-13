@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import DetailTile from "./DetailTile";
@@ -10,6 +11,7 @@ import { store } from "../../utils/store";
 
 const Work = (props) => {
   const [open, setOpen] = useState(false);
+  const { id } = useParams();
   const [modalTitle, setModalTitle] = useState("Add Work");
   const [current, setCurrent] = useState(false);
   const [startDate, handleStartDate] = useState(new Date());
@@ -30,7 +32,7 @@ const Work = (props) => {
 
   const getUser = async () => {
     dispatch({ type: "fetch" });
-    const result = await getApi("marcobustillo");
+    const result = await getApi(id);
     if (result) {
       dispatch({
         type: "getUser",

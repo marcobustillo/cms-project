@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { List, Typography } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import ListItem from "./ListItem";
@@ -8,32 +9,31 @@ import SkillModalItems from "./SkillModalItems";
 import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
-const Skills = props => {
+const Skills = (props) => {
   const [open, setOpen] = useState(false);
+  const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const [modalTitle, setModalTitle] = useState("Add Skill");
   const [formValues, setFormValues] = useState({
     title: "",
-    years: ""
+    years: "",
   });
   const [skill, setSkill] = useState("");
   const [rating, setRating] = useState(0);
 
   const {
     state: { loading, data },
-    dispatch
+    dispatch,
   } = useContext(store);
 
   const getUser = async () => {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      dispatch({ type: "fetch" });
-      const result = await getApi("marcobustillo");
-      if (result) {
-        dispatch({
-          type: "getUser",
-          payload: result.data
-        });
-      }
+    dispatch({ type: "fetch" });
+    const result = await getApi(id);
+    if (result) {
+      dispatch({
+        type: "getUser",
+        payload: result.data,
+      });
     }
   };
 
@@ -41,7 +41,7 @@ const Skills = props => {
     getUser();
   }, []);
 
-  const handleSkills = value => {
+  const handleSkills = (value) => {
     switch (value) {
       case "Learning":
         return 1;
@@ -62,17 +62,17 @@ const Skills = props => {
     setModalTitle("Add Skill");
     setFormValues({
       title: "",
-      years: 0
+      years: 0,
     });
     setSkill("");
     setRating(0);
     setOpen(!open);
   };
 
-  const handleEdit = values => {
+  const handleEdit = (values) => {
     setFormValues({
       title: values.title,
-      years: values.yearsOfExperience
+      years: values.yearsOfExperience,
     });
     setSkill("Learning");
     setRating(values.rating);
@@ -80,19 +80,19 @@ const Skills = props => {
     setOpen(true);
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const body = {
         name: formValues.title,
         level: skill,
         rating: parseInt(rating),
-        yearsOfExperience: parseInt()
+        yearsOfExperience: parseInt(),
       };
       const result = await postApi({ ...data, skills: [...data.skills, body] });
       dispatch({
         type: "getUser",
-        payload: result.data
+        payload: result.data,
       });
       enqueueSnackbar("Success!", { variant: "success" });
       setOpen(false);
@@ -102,13 +102,13 @@ const Skills = props => {
     }
   };
 
-  const onChange = event => {
+  const onChange = (event) => {
     setSkill(event.target.value);
     const rating = handleSkills(event.target.value);
     setRating(rating);
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { id, value } = event.target;
     setFormValues({ ...formValues, [id]: value });
   };

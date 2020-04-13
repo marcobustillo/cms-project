@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -18,7 +19,13 @@ const DrawerItems = (props) => {
   const history = useHistory();
   const { onClose } = props;
   const { dispatch } = useContext(store);
-  const id = "marcobustillo";
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setId(jwtDecode(token).username);
+  }, []);
+
   return (
     <div>
       <ListItem

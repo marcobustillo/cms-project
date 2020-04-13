@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Typography, Paper, Button } from "@material-ui/core";
 import { Edit, Cancel, Save } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,43 +10,42 @@ import { store } from "../../utils/store";
 
 const useStyles = makeStyles({
   paper: {
-    padding: 20
-  }
+    padding: 20,
+  },
 });
 
-const About = props => {
+const About = (props) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const { id } = useParams();
   const [isEdit, setIsEdit] = useState(false);
   const {
     state: { loading, data },
-    dispatch
+    dispatch,
   } = useContext(store);
   const [formValues, setFormValues] = useState({
     username: data.username,
     name: data.name,
     position: data.position,
     location: data.location,
-    about: data.about
+    about: data.about,
   });
 
   const getUser = async () => {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      dispatch({ type: "fetch" });
-      const result = await getApi("marcobustillo");
-      if (result) {
-        setFormValues({
-          username: result.data.username,
-          name: result.data.name,
-          position: result.data.position,
-          location: result.data.location,
-          about: result.data.about
-        });
-        dispatch({
-          type: "getUser",
-          payload: result.data
-        });
-      }
+    dispatch({ type: "fetch" });
+    const result = await getApi(id);
+    if (result) {
+      setFormValues({
+        username: result.data.username,
+        name: result.data.name,
+        position: result.data.position,
+        location: result.data.location,
+        about: result.data.about,
+      });
+      dispatch({
+        type: "getUser",
+        payload: result.data,
+      });
     }
   };
 
@@ -53,7 +53,7 @@ const About = props => {
     getUser();
   }, []);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { id, value } = e.target;
     setFormValues({ ...formValues, [id]: value });
   };
@@ -64,7 +64,7 @@ const About = props => {
       if (result) {
         dispatch({
           type: "getUser",
-          payload: result.data
+          payload: result.data,
         });
         setIsEdit(false);
         enqueueSnackbar("Successfully updated", { variant: "success" });
@@ -83,7 +83,7 @@ const About = props => {
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
       >
         <Typography variant="h4">Personal Information</Typography>

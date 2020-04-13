@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { List, Typography } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import SocialMediaItem from "./SocialMediaItem";
@@ -8,30 +9,29 @@ import SocialMediaModalItems from "./SocialMediaModalItems";
 import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
-const SocialMedia = props => {
+const SocialMedia = (props) => {
+  const { id } = useParams();
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [modalTitle, setModalTitle] = useState("Add Social Media");
   const [formValues, setFormValues] = useState({
     link: "",
-    type: ""
+    type: "",
   });
 
   const {
     state: { loading, data },
-    dispatch
+    dispatch,
   } = useContext(store);
 
   const getUser = async () => {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      dispatch({ type: "fetch" });
-      const result = await getApi("marcobustillo");
-      if (result) {
-        dispatch({
-          type: "getUser",
-          payload: result.data
-        });
-      }
+    dispatch({ type: "fetch" });
+    const result = await getApi(id);
+    if (result) {
+      dispatch({
+        type: "getUser",
+        payload: result.data,
+      });
     }
   };
 
@@ -39,16 +39,16 @@ const SocialMedia = props => {
     getUser();
   }, []);
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const result = await postApi({
         ...data,
-        socials: [...data.socials, formValues]
+        socials: [...data.socials, formValues],
       });
       dispatch({
         type: "getUser",
-        payload: result.data
+        payload: result.data,
       });
       enqueueSnackbar("Success!", { variant: "success" });
     } catch (err) {
@@ -57,7 +57,7 @@ const SocialMedia = props => {
     }
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { id, value } = event.target;
     setFormValues({ ...formValues, [id]: value });
   };
@@ -68,7 +68,7 @@ const SocialMedia = props => {
     setModalTitle("Add Social Media");
   };
 
-  const handleEdit = values => {
+  const handleEdit = (values) => {
     setModalTitle("Edit Social Media");
     setFormValues(values);
     setOpen(true);
@@ -79,7 +79,7 @@ const SocialMedia = props => {
       <Typography variant="h4">Social Media</Typography>
       <List>
         {data.socials &&
-          data.socials.map(media => (
+          data.socials.map((media) => (
             <SocialMediaItem
               key={media.link}
               link={media.link}

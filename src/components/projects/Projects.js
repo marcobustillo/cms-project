@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
 import Fab from "../FloatingAction";
 import ProjectItem from "./ProjectItem";
@@ -7,24 +8,23 @@ import ProjectModalItem from "./ProjectModalItem";
 import { getApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
-const Projects = props => {
+const Projects = (props) => {
   const [open, setOpen] = useState(false);
+  const { id } = useParams();
   const [modalTitle, setModalTitle] = useState("Add Education");
   const {
     state: { loading, data },
-    dispatch
+    dispatch,
   } = useContext(store);
 
   const getUser = async () => {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      dispatch({ type: "fetch" });
-      const result = await getApi("marcobustillo");
-      if (result) {
-        dispatch({
-          type: "getUser",
-          payload: result.data
-        });
-      }
+    dispatch({ type: "fetch" });
+    const result = await getApi(id);
+    if (result) {
+      dispatch({
+        type: "getUser",
+        payload: result.data,
+      });
     }
   };
 
@@ -32,12 +32,12 @@ const Projects = props => {
     getUser();
   }, []);
 
-  const handleEdit = values => {
+  const handleEdit = (values) => {
     setModalTitle("Edit Project");
     setOpen(true);
   };
 
-  const handleSubmit = async event => {};
+  const handleSubmit = async (event) => {};
 
   const handleOpenModal = () => {
     setOpen(!open);

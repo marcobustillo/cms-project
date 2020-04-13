@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import EducationTile from "./EducationTile";
@@ -8,8 +9,9 @@ import EducationModalItem from "./EducationModalItem";
 import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
-const Education = props => {
+const Education = (props) => {
   const { enqueueSnackbar } = useSnackbar();
+  const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Education");
   const [current, setCurrent] = useState(false);
@@ -19,24 +21,22 @@ const Education = props => {
     institution: "",
     area: "",
     location: "",
-    studyType: ""
+    studyType: "",
   });
 
   const {
     state: { loading, data },
-    dispatch
+    dispatch,
   } = useContext(store);
 
   const getUser = async () => {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      dispatch({ type: "fetch" });
-      const result = await getApi("marcobustillo");
-      if (result) {
-        dispatch({
-          type: "getUser",
-          payload: result.data
-        });
-      }
+    dispatch({ type: "fetch" });
+    const result = await getApi(id);
+    if (result) {
+      dispatch({
+        type: "getUser",
+        payload: result.data,
+      });
     }
   };
 
@@ -44,7 +44,7 @@ const Education = props => {
     getUser();
   }, []);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { id, value } = event.target;
     if (id === "isCurrent") {
       setCurrent(!current);
@@ -53,13 +53,13 @@ const Education = props => {
     setFormValues({ ...formValues, [id]: value });
   };
 
-  const handleEdit = values => {
+  const handleEdit = (values) => {
     setModalTitle("Edit Education");
     setFormValues({
       institution: "",
       area: "",
       location: "",
-      studyType: ""
+      studyType: "",
     });
     setCurrent(false);
     handleStartDate(new Date());
@@ -67,22 +67,22 @@ const Education = props => {
     setOpen(true);
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const body = {
         ...formValues,
         isCurrent: current,
         startDate,
-        endDate
+        endDate,
       };
       const result = await postApi({
         ...data,
-        education: [...data.education, body]
+        education: [...data.education, body],
       });
       dispatch({
         type: "getUser",
-        payload: result.data
+        payload: result.data,
       });
       setOpen(false);
       enqueueSnackbar("Success!", { variant: "success" });
