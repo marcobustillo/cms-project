@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField, Button, Avatar, Typography } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useSnackbar } from "notistack";
 import { postData } from "../../utils/api";
 import validation from "./authValidation";
+import { store } from "../../utils/store";
 
 const SignIn = (props) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -12,6 +13,7 @@ const SignIn = (props) => {
     password: "",
   });
   const [errorState, setErrorState] = useState({});
+  const { dispatch } = useContext(store);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -27,8 +29,12 @@ const SignIn = (props) => {
         setErrorState(errors);
         return;
       }
-      const result = await postData("login", formValues);
-      console.log(result);
+      const result = await postData("/login", formValues);
+      localStorage.setItem("token", result.data.token);
+      dispatch({
+        type: "auth",
+      });
+      props.handleClose();
     } catch (err) {
       enqueueSnackbar("Incorrect username/password", { variant: "error" });
     }

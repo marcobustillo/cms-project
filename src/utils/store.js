@@ -7,6 +7,8 @@ const { Provider } = store;
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
+      case "auth":
+        return { ...state, isAuthenticated: true };
       case "fetch":
         return { ...state, loading: true };
       case "getUser":
@@ -15,7 +17,6 @@ const StateProvider = ({ children }) => {
         throw new Error();
     }
   }, initialState);
-
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 

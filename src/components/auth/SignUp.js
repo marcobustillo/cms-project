@@ -29,7 +29,7 @@ const SignUp = (props) => {
         setErrorState(errors);
         return;
       }
-      const result = await postData("register", formValues);
+      const result = await postData("/register", formValues);
       console.log(result);
     } catch (err) {
       enqueueSnackbar("Something went wrong...", { variant: "error" });

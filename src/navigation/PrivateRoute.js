@@ -5,13 +5,12 @@ import { store } from "../utils/store";
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const {
     state: { isAuthenticated },
-    dispatch
   } = useContext(store);
 
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         isAuthenticated || rest.exempt ? (
           <Component {...props} />
         ) : (

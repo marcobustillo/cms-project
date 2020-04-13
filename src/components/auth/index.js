@@ -25,12 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+export default (props) => {
   const classes = useStyles();
   const [state, setState] = useState(0);
   return (
     <Container className={classes.paper}>
-      {state === 0 && <SignIn className={classes.logo} />}
+      {state === 0 && (
+        <SignIn className={classes.logo} handleClose={props.handleClose} />
+      )}
       {state === 0 && (
         <Grid container>
           <Grid item xs>

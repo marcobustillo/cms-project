@@ -3,7 +3,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import {
   createMuiTheme,
   responsiveFontSizes,
-  ThemeProvider
+  ThemeProvider,
 } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { SnackbarProvider } from "notistack";

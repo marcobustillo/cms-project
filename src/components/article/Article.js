@@ -8,14 +8,19 @@ const Article = (props) => {
   const [state, setState] = useState({
     loading: false,
     articles: [],
+    page: 1,
     articleLoading: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   });
 
   const getFeed = async () => {
-    setState({ ...state, loading: true });
-    const result = await getData("/feed");
-    if (result) {
-      setState({ ...state, loading: false, articles: result.data });
+    try {
+      setState({ ...state, loading: true });
+      const result = await getData(`/feed?page=${state.page}`);
+      if (result) {
+        setState({ ...state, loading: false, articles: result.data });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

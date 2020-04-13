@@ -8,7 +8,7 @@ import WorkModalItem from "./WorkModalItem";
 import { getApi, postApi } from "../../utils/api";
 import { store } from "../../utils/store";
 
-const Work = props => {
+const Work = (props) => {
   const [open, setOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Work");
   const [current, setCurrent] = useState(false);
@@ -20,24 +20,22 @@ const Work = props => {
     position: "",
     website: "",
     location: "",
-    summary: ""
+    summary: "",
   });
 
   const {
     state: { loading, data },
-    dispatch
+    dispatch,
   } = useContext(store);
 
   const getUser = async () => {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      dispatch({ type: "fetch" });
-      const result = await getApi("marcobustillo");
-      if (result) {
-        dispatch({
-          type: "getUser",
-          payload: result.data
-        });
-      }
+    dispatch({ type: "fetch" });
+    const result = await getApi("marcobustillo");
+    if (result) {
+      dispatch({
+        type: "getUser",
+        payload: result.data,
+      });
     }
   };
 
@@ -45,7 +43,7 @@ const Work = props => {
     getUser();
   }, []);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { id, value } = event.target;
     if (id === "isCurrent") {
       setCurrent(!current);
@@ -54,13 +52,13 @@ const Work = props => {
     setFormValues({ ...formValues, [id]: value });
   };
 
-  const handleEdit = values => {
+  const handleEdit = (values) => {
     setModalTitle("Edit Work");
     setFormValues({
       company: "",
       position: "",
       location: "",
-      summary: ""
+      summary: "",
     });
     setCurrent(false);
     handleStartDate(new Date());
@@ -68,20 +66,20 @@ const Work = props => {
     setOpen(true);
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const body = {
         ...formValues,
         isCurrent: current,
         startDate,
-        endDate
+        endDate,
       };
       const result = await postApi({ ...data, work: [...data.work, body] });
       if (result) {
         dispatch({
           type: "getUser",
-          payload: result.data
+          payload: result.data,
         });
         setOpen(false);
         enqueueSnackbar("Sucess!", { variant: "success" });

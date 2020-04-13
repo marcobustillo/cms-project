@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -39,40 +39,40 @@ function Copyright() {
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
   toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
+    paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
     padding: "0 8px",
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
-    marginRight: 20
+    marginRight: 20,
   },
   menuButtonHidden: {
-    display: "none"
+    display: "none",
   },
   title: { flexGrow: 1 },
   drawerPaper: {
@@ -81,46 +81,47 @@ const useStyles = makeStyles(theme => ({
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   drawerPaperClose: {
     overflowX: "hidden",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(7),
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9)
-    }
+      width: theme.spacing(9),
+    },
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     height: "100vh",
-    overflow: "auto"
+    overflow: "auto",
   },
   container: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(4),
   },
   paper: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   fixedHeight: {
-    height: 240
-  }
+    height: 240,
+  },
 }));
 
 const Dashboard = () => {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const {
-    state: { isAuthenticated }
+    state: { isAuthenticated },
+    dispatch,
   } = useContext(store);
   const [open, setOpen] = React.useState(false);
 
@@ -134,6 +135,14 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch({
+        type: "auth",
+      });
+    }
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -175,7 +184,7 @@ const Dashboard = () => {
                 paper: clsx(
                   classes.drawerPaper,
                   !open && classes.drawerPaperClose
-                )
+                ),
               }}
               open={open}
             >
@@ -209,7 +218,7 @@ const Dashboard = () => {
           {Router(matchMemo)}
           <div
             style={{
-              margin: "20px auto"
+              margin: "20px auto",
             }}
           >
             <Copyright />
@@ -220,7 +229,7 @@ const Dashboard = () => {
           noAction
           handleClose={() => setModalOpen(false)}
         >
-          <Auth />
+          <Auth handleClose={() => setModalOpen(false)} />
         </Modal>
       </main>
     </div>
