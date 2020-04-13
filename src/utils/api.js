@@ -7,8 +7,16 @@ const getApi = async (id) => {
 };
 
 const postApi = async (values) => {
-  const result = await axios.post(`${URL}/api/content`, values);
-  return result;
+  try {
+    const result = await axios.post(`${URL}/api/content`, values, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return result;
+  } catch (err) {
+    return err;
+  }
 };
 
 const getData = async (route) => {

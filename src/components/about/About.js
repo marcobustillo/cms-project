@@ -23,6 +23,7 @@ const About = (props) => {
     state: { loading, data },
     dispatch,
   } = useContext(store);
+
   const [formValues, setFormValues] = useState({
     username: data.username,
     name: data.name,
