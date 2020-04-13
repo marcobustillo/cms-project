@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -12,10 +12,12 @@ import ProfileIcon from "@material-ui/icons/AccountBox";
 import ProjectIcon from "@material-ui/icons/AccountTree";
 import LanguageIcon from "@material-ui/icons/Language";
 import SignOut from "@material-ui/icons/ExitToApp";
+import { store } from "../utils/store";
 
-const DrawerItems = props => {
+const DrawerItems = (props) => {
   const history = useHistory();
   const { onClose } = props;
+  const { dispatch } = useContext(store);
   const id = "marcobustillo";
   return (
     <div>
@@ -135,6 +137,10 @@ const DrawerItems = props => {
         button
         onClick={() => {
           localStorage.clear();
+          dispatch({
+            type: "signOut",
+          });
+          history.push("/");
         }}
       >
         <ListItemIcon>

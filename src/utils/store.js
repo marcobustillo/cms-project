@@ -9,6 +9,8 @@ const StateProvider = ({ children }) => {
     switch (action.type) {
       case "auth":
         return { ...state, isAuthenticated: true };
+      case "signOut":
+        return { ...state, isAuthenticated: false };
       case "fetch":
         return { ...state, loading: true };
       case "getUser":
