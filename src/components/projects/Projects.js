@@ -47,24 +47,25 @@ const Projects = (props) => {
   return (
     <>
       <Typography variant="h4">Projects</Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6} lg={6}>
-          <ProjectItem onClick={handleEdit} />
-        </Grid>
-      </Grid>
-      {/* {data.work && data.work.length > 0 && (
+      {data.projects && data.projects.length > 0 && (
         <Grid container spacing={3}>
-          {data.work &&
-            data.work.map(item => <Grid item xs={12} md={6} lg={6}></Grid>)}
+          <Grid container spacing={3}>
+            {data.projects &&
+              data.projects.map((item) => (
+                <Grid item xs={12} md={6} lg={6}>
+                  <ProjectItem onClick={handleEdit} />
+                </Grid>
+              ))}
+          </Grid>
         </Grid>
       )}
-      {data.work && data.work.length === 0 && (
+      {data.projects && data.projects.length === 0 && (
         <div className="MuiList-root MuiList-padding">
           <Typography variant="subtitle1" paragraph color="textSecondary">
             No projects found. Add project
           </Typography>
         </div>
-      )} */}
+      )}
       <Fab onClick={handleOpenModal} />
       <Modal
         title={modalTitle}
